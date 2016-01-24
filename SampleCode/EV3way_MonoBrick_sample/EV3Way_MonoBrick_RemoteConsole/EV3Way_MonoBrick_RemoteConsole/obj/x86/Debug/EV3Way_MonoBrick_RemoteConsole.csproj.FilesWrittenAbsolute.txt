@@ -1,0 +1,5 @@
+/Users/inachi/Downloads/2015-02-02.EV3way_MonoBrick_samaple/EV3Way_MonoBrick_RemoteConsole/EV3Way_MonoBrick_RemoteConsole/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/inachi/Downloads/2015-02-02.EV3way_MonoBrick_samaple/EV3Way_MonoBrick_RemoteConsole/EV3Way_MonoBrick_RemoteConsole/bin/Debug/EV3Way_MonoBrick_RemoteConsole.exe.mdb
+/Users/inachi/Downloads/2015-02-02.EV3way_MonoBrick_samaple/EV3Way_MonoBrick_RemoteConsole/EV3Way_MonoBrick_RemoteConsole/bin/Debug/EV3Way_MonoBrick_RemoteConsole.exe
+/Users/inachi/Downloads/2015-02-02.EV3way_MonoBrick_samaple/EV3Way_MonoBrick_RemoteConsole/EV3Way_MonoBrick_RemoteConsole/obj/x86/Debug/EV3Way_MonoBrick_RemoteConsole.exe
+/Users/inachi/Downloads/2015-02-02.EV3way_MonoBrick_samaple/EV3Way_MonoBrick_RemoteConsole/EV3Way_MonoBrick_RemoteConsole/obj/x86/Debug/EV3Way_MonoBrick_RemoteConsole.exe.mdb
