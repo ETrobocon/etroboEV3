@@ -23,7 +23,7 @@
 ** Tadashi Huruya - Mon Feb 09 21:36:00 2015
 ** ported from balancer.c
 ***
-** Copyright (c) 2009-2015 MathWorks, Inc.
+** Copyright (c) 2009-2016 MathWorks, Inc.
 ** All rights reserved.
 ******************************************************************************
 **/

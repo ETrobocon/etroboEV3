@@ -161,7 +161,7 @@ void main_task(intptr_t unused)
         /* 倒立振子制御API に渡すパラメータを取得する */
         motor_ang_l = ev3_motor_get_counts(left_motor);
         motor_ang_r = ev3_motor_get_counts(right_motor);
-        gyro = -1 * ev3_gyro_sensor_get_rate(gyro_sensor); /* ※ジャイロセンサーの向きが逆のため符号反転 */
+        gyro = ev3_gyro_sensor_get_rate(gyro_sensor);
         volt = ev3_battery_voltage_mV();
 
         /* 倒立振子制御APIを呼び出し、倒立走行するための */

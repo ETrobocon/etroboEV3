@@ -151,7 +151,7 @@ namespace ETTobocon.EV3.Sample
 					turn = (body.color.Read () >= (LIGHT_BLACK + LIGHT_WHITE) / 2) ? (sbyte)50 : (sbyte)-50;
 				}
 
-				int gyroNow = -body.gyro.Read();
+				int gyroNow = body.gyro.Read();
 				int thetaL = body.motorL.GetTachoCount();
 				int theTaR = body.motorR.GetTachoCount();
 				sbyte pwmL, pwmR;
