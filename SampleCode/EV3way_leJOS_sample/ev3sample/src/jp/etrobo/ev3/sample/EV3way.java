@@ -8,6 +8,7 @@ package jp.etrobo.ev3.sample;
 import jp.etrobo.ev3.balancer.Balancer;
 import lejos.hardware.Battery;
 import lejos.hardware.port.BasicMotorPort;
+import lejos.hardware.port.Port;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.port.TachoMotorPort;
@@ -20,19 +21,26 @@ import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 /**
- * EV3way本体のモータとセンサを扱うクラス。
+ * EV3way本体のモータとセンサーを扱うクラス。
  */
 public class EV3way {
     public static final int   TAIL_ANGLE_STAND_UP   = 94;   // 完全停止時の角度[度]
     public static final int   TAIL_ANGLE_DRIVE      = 3;    // バランス走行時の角度[度]
 
 	// 下記のパラメータはセンサ個体/環境に合わせてチューニングする必要があります
-    private static final float GYRO_OFFSET          = 0.0F; //ジャイロセンサオフセット値
-    private static final float LIGHT_WHITE          = 0.4F; // 白色のカラーセンサ輝度値
-    private static final float LIGHT_BLACK          = 0.0F; // 黒色のカラーセンサ輝度値
-    private static final float SONAR_ALERT_DISTANCE = 0.3F; // 超音波センサによる障害物検知距離[m]
-    private static final float P_GAIN               = 2.5F; // 完全停止用モータ制御比例係数
-    private static final int   PWM_ABS_MAX          = 60;   // 完全停止用モータ制御PWM絶対最大値
+    private static final Port  MOTORPORT_LWHEEL     = MotorPort.C;    // 左モータポート
+    private static final Port  MOTORPORT_RWHEEL     = MotorPort.B;    // 右モータポート
+    private static final Port  MOTORPORT_TAIL       = MotorPort.A;    // 尻尾モータポート
+    private static final Port  SENSORPORT_TOUCH     = SensorPort.S1;  // タッチセンサーポート
+    private static final Port  SENSORPORT_SONAR     = SensorPort.S2;  // 超音波センサーポート
+    private static final Port  SENSORPORT_COLOR     = SensorPort.S3;  // カラーセンサーポート
+    private static final Port  SENSORPORT_GYRO      = SensorPort.S4;  // ジャイロセンサーポート
+    private static final float GYRO_OFFSET          = 0.0F;           // ジャイロセンサーオフセット値
+    private static final float LIGHT_WHITE          = 0.4F;           // 白色のカラーセンサー輝度値
+    private static final float LIGHT_BLACK          = 0.0F;           // 黒色のカラーセンサー輝度値
+    private static final float SONAR_ALERT_DISTANCE = 0.3F;           // 超音波センサーによる障害物検知距離[m]
+    private static final float P_GAIN               = 2.5F;           // 完全停止用モータ制御比例係数
+    private static final int   PWM_ABS_MAX          = 60;             // 完全停止用モータ制御PWM絶対最大値
     private static final float THRESHOLD = (LIGHT_WHITE+LIGHT_BLACK)/2.0F;	// ライントレースの閾値
 
     // モータ制御用オブジェクト
@@ -68,36 +76,37 @@ public class EV3way {
      * コンストラクタ。
      */
     public EV3way() {
-        motorPortL = MotorPort.C.open(TachoMotorPort.class); // 左モータ
-        motorPortR = MotorPort.B.open(TachoMotorPort.class); // 右モータ
-        motorPortT = MotorPort.A.open(TachoMotorPort.class); // 尻尾モータ
+        motorPortL = MOTORPORT_LWHEEL.open(TachoMotorPort.class); // 左モータ
+        motorPortR = MOTORPORT_RWHEEL.open(TachoMotorPort.class); // 右モータ
+        motorPortT = MOTORPORT_TAIL.open(TachoMotorPort.class);   // 尻尾モータ
         motorPortL.setPWMMode(BasicMotorPort.PWM_BRAKE);
         motorPortR.setPWMMode(BasicMotorPort.PWM_BRAKE);
         motorPortT.setPWMMode(BasicMotorPort.PWM_BRAKE);
 
-        // タッチセンサ
-        touch = new EV3TouchSensor(SensorPort.S1);
+        // タッチセンサー
+        touch = new EV3TouchSensor(SENSORPORT_TOUCH);
         touchMode = touch.getTouchMode();
         sampleTouch = new float[touchMode.sampleSize()];
 
-        // 超音波センサ
-        sonar = new EV3UltrasonicSensor(SensorPort.S2);
+        // 超音波センサー
+        sonar = new EV3UltrasonicSensor(SENSORPORT_SONAR);
         distanceMode = sonar.getDistanceMode(); // 距離検出モード
         sampleDistance = new float[distanceMode.sampleSize()];
         sonar.enable();
 
-        // カラーセンサ
-        colorSensor = new EV3ColorSensor(SensorPort.S3);
+        // カラーセンサー
+        colorSensor = new EV3ColorSensor(SENSORPORT_COLOR);
         redMode = colorSensor.getRedMode();     // 輝度検出モード
         sampleLight = new float[redMode.sampleSize()];
 
-        // ジャイロセンサ
-        gyro = new EV3GyroSensor(SensorPort.S4);
+        // ジャイロセンサー
+        gyro = new EV3GyroSensor(SENSORPORT_GYRO);
         rate = gyro.getRateMode();              // 角速度検出モード
         sampleGyro = new float[rate.sampleSize()];
     }
 
     /**
+     * 走行関連メソッドの空回し。
      * Java の初期実行性能が悪く、倒立振子に十分なリアルタイム性が得られない。
      * そのため、走行によく使うメソッドについて、HotSpot がネイティブコードに変換するまで空実行する。
      * HotSpot が起きるデフォルトの実行回数は 1500。
@@ -140,7 +149,7 @@ public class EV3way {
     }
 
     /**
-     * タッチセンサ押下のチェック。
+     * タッチセンサー押下のチェック。
      * @return true ならタッチセンサーが押された。
      */
     public final boolean touchSensorIsPressed() {
@@ -152,8 +161,8 @@ public class EV3way {
      * 走行制御。
      */
     public void controlDrive() {
-        if (++driveCallCounter >= 40/4) {      // 約40msごとに障害物検知
-            sonarAlert = alertObstacle(); // 障害物検知
+        if (++driveCallCounter >= 40/4) {  // 約40msごとに障害物検知
+            sonarAlert = alertObstacle();  // 障害物検知
             driveCallCounter = 0;
         }
         float forward =  0.0F; // 前後進命令
@@ -170,10 +179,10 @@ public class EV3way {
             }
         }
 
-        float gyroNow = getGyroValue();              // ジャイロセンサー値
-        int thetaL = motorPortL.getTachoCount();     // 左モータ回転角度
-        int thetaR = motorPortR.getTachoCount();     // 右モータ回転角度
-        int battery = Battery.getVoltageMilliVolt();      // バッテリー電圧[mV]
+        float gyroNow = getGyroValue();                 // ジャイロセンサー値
+        int thetaL = motorPortL.getTachoCount();        // 左モータ回転角度
+        int thetaR = motorPortR.getTachoCount();        // 右モータ回転角度
+        int battery = Battery.getVoltageMilliVolt();    // バッテリー電圧[mV]
         Balancer.control (forward, turn, gyroNow, GYRO_OFFSET, thetaL, thetaR, battery); // 倒立振子制御
         motorPortL.controlMotor(Balancer.getPwmL(), 1); // 左モータPWM出力セット
         motorPortR.controlMotor(Balancer.getPwmR(), 1); // 右モータPWM出力セット
@@ -195,7 +204,7 @@ public class EV3way {
     }
 
     /*
-     * 超音波センサによる障害物検知
+     * 超音波センサーによる障害物検知
      * @return true(障害物あり)/false(障害物無し)
      */
     private boolean alertObstacle() {
@@ -207,7 +216,7 @@ public class EV3way {
     }
 
     /*
-     * 超音波センサにより障害物との距離を取得する。
+     * 超音波センサーにより障害物との距離を取得する。
      * @return 障害物との距離(m)。
      */
     private final float getSonarDistance() {
@@ -216,7 +225,7 @@ public class EV3way {
     }
 
     /*
-     * カラーセンサから輝度値を取得する。
+     * カラーセンサーから輝度値を取得する。
      * @return 輝度値。
      */
     private final float getBrightness() {
@@ -225,7 +234,7 @@ public class EV3way {
     }
 
     /*
-     * ジャイロセンサから角速度を取得する。
+     * ジャイロセンサーから角速度を取得する。
      * @return 角速度。
      */
     private final float getGyroValue() {

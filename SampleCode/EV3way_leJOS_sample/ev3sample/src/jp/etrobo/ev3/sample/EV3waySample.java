@@ -1,7 +1,7 @@
 /*
  *  EV3waySample.java (for leJOS EV3)
  *  Created on: 2016/02/11
- *  Copyright (c) 2015 Embedded Technology Software Design Robot Contest
+ *  Copyright (c) 2016 Embedded Technology Software Design Robot Contest
  */
 package jp.etrobo.ev3.sample;
 
@@ -53,11 +53,11 @@ public class EV3waySample {
         boolean res = true;
         body.controlTail(EV3way.TAIL_ANGLE_STAND_UP);
         if (body.touchSensorIsPressed()) {
-            touchPressed = true;          // タッチセンサが押された
+            touchPressed = true;          // タッチセンサーが押された
         } else {
             if (touchPressed) {
                 res = false;
-                touchPressed = false;     // タッチセンサが押された後に放した
+                touchPressed = false;     // タッチセンサーが押された後に放した
             }
         }
         if (remoteTask.checkRemoteCommand(RemoteTask.REMOTE_COMMAND_START)) {  // PC で 'g' キーが押された
@@ -72,11 +72,11 @@ public class EV3waySample {
     public boolean waitForStop() {
     	boolean res = true;
         if (body.touchSensorIsPressed()) {
-            touchPressed = true;          // タッチセンサが押された
+            touchPressed = true;          // タッチセンサーが押された
         } else {
             if (touchPressed) {
                 res = false;
-                touchPressed = false;     // タッチセンサが押された後に放した
+                touchPressed = false;     // タッチセンサーが押された後に放した
             }
         }
         if (remoteTask.checkRemoteCommand(RemoteTask.REMOTE_COMMAND_STOP)) { // PC で 's' キー押されたら走行終了
