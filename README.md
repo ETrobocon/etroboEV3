@@ -1,4 +1,18 @@
 # etroboEV3
 ETロボコン用のEV3サポートサイト
 
-※ただいま新居建設中です。完成までは[昨年度のサイト](https://sourceforge.net/projects/etroboev3/)をご覧ください。
+ET ロボコン 2016 にて使用する、LEGO Mindstorms EV3 を使用した走行体の、組み立て図や環境構築手順、およびサンプルコードを公開しています。  
+Copyright (C) 2015-2016 ETロボコン実行委員会, All rights reserved.
+
+注意：公開されている走行体組み立て図のご利用は、以下の目的に限らせていただきます：  
+　- ETロボコンへの参加のため  
+　- ETロボコンへの参加を検討するため  
+　- ETロボコンの広報  
+　- ETロボコンに参加、協力していることを広報するため  
+
+開発環境の構築ガイドなどは、Wiki をご覧ください： https://github.com/ETrobocon/etroboEV3/wiki
+
+それぞれの開発環境での、課題と対処を、こちらにまとめています： https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
+
+※ET ロボコン 2016 公式サイト： http://www.etrobo.jp/
+
