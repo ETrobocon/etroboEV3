@@ -1,11 +1,8 @@
 ﻿README
 
-ET ロボコンで使用する EV3way と ETrikeV の「非公式」な組み立て図です。
+ET ロボコンで使用する EV3way-ET の「非公式」な組み立て図です。
 
-  ETrikeVAlpha2.pdf
-  デベロッパー部門アドバンストクラスで使用する、トライク型の走行体。
-
-  EV3wayET03.pdf
+  EV3wayET16.pdf
   デベロッパー部門プライマリークラスで使用する、二輪倒立振子型の走行体。
 
 
@@ -20,5 +17,5 @@ ET ロボコンで使用する EV3way と ETrikeV の「非公式」な組み立
 
 本組み立て図の著作権は、ETロボコン実行委員会に帰属します。
 
-Copyright(c) 2015 ETロボコン実行委員会
+Copyright(c) 2014-16 ETロボコン実行委員会
 All rights reserved.
