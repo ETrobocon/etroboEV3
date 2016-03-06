@@ -1,6 +1,8 @@
 //
 // Motor.cpp
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
 #include "Motor.h"
 using namespace ev3api;

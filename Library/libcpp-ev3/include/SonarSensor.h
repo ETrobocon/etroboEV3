@@ -1,10 +1,11 @@
 //
 // SonarSensor.h
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
 //
 
-#ifndef SONARSENSOR_H_
-#define SONARSENSOR_H_
+#ifndef EV3CPPAPI_SONARSENSOR_H_
+#define EV3CPPAPI_SONARSENSOR_H_
 
 #include "Sensor.h"
 
@@ -35,7 +36,15 @@ public:
      * @return 距離 [cm]
      */
     int16_t getDistance(void) const;
+
+    /**
+     * 超音波信号を検出する
+     * @param -
+     * @return true 超音波信号を検出した
+     * @return false 超音波信号を検出しなかった
+     */
+    bool listen(void) const;
 }; // class SonarSensor
 }  // namespace ev3api
 
-#endif
+#endif // ! EV3CPPAPI_SONARSENSOR_H_

@@ -1,9 +1,11 @@
 //
 // Port.h
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
-#ifndef PORT_H_
-#define PORT_H_
+#ifndef EV3CPPAPI_PORT_H_
+#define EV3CPPAPI_PORT_H_
 
 /**
  * @file Port.h
@@ -48,4 +50,4 @@ enum ePower
 /** モータポート数 */
 #define NUM_PORT_M (4) // number of motor ports
 
-#endif
+#endif // ! EV3CPPAPI_PORT_H_

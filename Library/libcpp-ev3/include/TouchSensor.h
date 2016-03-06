@@ -1,9 +1,11 @@
 //
 // TouchSensor.h
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
-#ifndef TOUCHSENSOR_H_
-#define TOUCHSENSOR_H_
+#ifndef EV3CPPAPI_TOUCHSENSOR_H_
+#define EV3CPPAPI_TOUCHSENSOR_H_
 
 #include "Sensor.h"
 

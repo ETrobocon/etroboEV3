@@ -1,11 +1,11 @@
 //
 // Sensor.h
 //
-// Copyright 2009 by Takashi Chikamasa, Jon C. Martin and Robert W. Kramer
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
 //
 
-#ifndef SENSOR_H_
-#define SENSOR_H_
+#ifndef EV3CPPAPI_SENSOR_H_
+#define EV3CPPAPI_SENSOR_H_
 
 #include "Port.h"
 
@@ -50,4 +50,4 @@ private:
 }; // class Sensor
 }  // namespace ev3api
 
-#endif
+#endif // ! EV3CPPAPI_SENSOR_H_

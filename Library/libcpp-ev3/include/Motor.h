@@ -1,11 +1,11 @@
 //
 // Motor.h
 //
-// Copyright 2009 by Takashi Chikamasa, Jon C. Martin and Robert W. Kramer
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
 //
 
-#ifndef MOTOR_H_
-#define MOTOR_H_
+#ifndef EV3CPPAPI_MOTOR_H_
+#define EV3CPPAPI_MOTOR_H_
 
 #include "Port.h"
 #include "ev3api.h"
@@ -17,6 +17,8 @@ namespace ev3api {
 class Motor
 {
 public:
+    friend class Steering;
+
     /**
      * PWM最大値
      */
@@ -87,6 +89,13 @@ public:
      */
     void setBrake(bool brake);
 
+    /**
+     * 停止する。
+     * @param -
+     * @return -
+     */
+    inline void stop() { (void)ev3_motor_stop(mPort, mBrake); }
+
 protected:
     /**
      * モータ接続ポート取得
@@ -119,4 +128,4 @@ private:
 }; // class Motor
 }  // namespace ev3api
 
-#endif
+#endif // ! EV3CPPAPI_MOTOR_H_

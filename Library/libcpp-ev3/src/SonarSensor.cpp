@@ -1,6 +1,8 @@
 //
 // SonarSensor.cpp
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
 #include "SonarSensor.h"
 using namespace ev3api;
@@ -27,5 +29,12 @@ SonarSensor::~SonarSensor(void)
 int16_t SonarSensor::getDistance(void) const
 {
     return ev3_ultrasonic_sensor_get_distance(getPort());
+}
+
+//=============================================================================
+// listen sonar signal
+bool SonarSensor::listen(void) const
+{
+    return ev3_ultrasonic_sensor_listen(getPort());
 }
 

@@ -1,9 +1,11 @@
 //
 // GyroSensor.h
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
-#ifndef GYROSENSOR_H_
-#define GYROSENSOR_H_
+#ifndef EV3CPPAPI_GYROSENSOR_H_
+#define EV3CPPAPI_GYROSENSOR_H_
 
 #include "Sensor.h"
 
@@ -49,9 +51,16 @@ public:
      */
     int16_t getAnglerVelocity(void) const;
 
+    /**
+     * 角位置を測定する
+     * @param -
+     * @return 角位置 [deg]
+     */
+    int16_t getAngle(void) const;
+
 private:
     int16_t mOffset;
 }; // class GyroSensor
 }  // namespace ev3api
 
-#endif
+#endif // ! EV3CPPAPI_GYROSENSOR_H_

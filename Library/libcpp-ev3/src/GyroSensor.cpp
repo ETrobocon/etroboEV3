@@ -1,7 +1,7 @@
 //
 // GyroSensor.cpp
 //
-// Copyright 2009 by Takashi Chikamasa, Jon C. Martin and Robert W. Kramer
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
 //
 
 #include "GyroSensor.h"
@@ -23,7 +23,7 @@ mOffset(DEFAULT_OFFSET)
 // set sensor offset data at 0 [deg/sec]
 void GyroSensor::setOffset(int16_t offset)
 {
-    mOffset = (offset>1023)? 1023:((offset<0)? 0:offset);
+    mOffset = offset;
 }
 
 
@@ -39,5 +39,12 @@ void GyroSensor::reset(void)
 int16_t GyroSensor::getAnglerVelocity(void) const
 {
     return ev3_gyro_sensor_get_rate(getPort()) - mOffset;
-};
+}
+
+//=============================================================================
+// get angule [deg]
+int16_t GyroSensor::getAngle(void) const
+{
+    return ev3_gyro_sensor_get_angle(getPort());
+}
 

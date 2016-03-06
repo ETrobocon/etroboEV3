@@ -1,6 +1,8 @@
 //
 // Clock.cpp
 //
+// Copyright (c) 2015-2016 Embedded Technology Software Design Robot Contest
+//
 
 #include "Clock.h"
 using namespace ev3api;
