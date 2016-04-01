@@ -40,7 +40,7 @@ public:
     /**
      * 反射光の強さを測定する
      * @param -
-     * @return 環境光の強さ (0-100)
+     * @return 反射光の強さ (0-100)
      */
     int8_t getBrightness(void) const;
 
