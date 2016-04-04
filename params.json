@@ -1,1 +1,7 @@
-{"name":"etroboEV3","tagline":"ETロボコン用のEV3サポートサイト","body":"# etroboEV3\r\nETロボコン用のEV3サポートサイト\r\n\r\nET ロボコン 2016 にて使用する、LEGO Mindstorms EV3 を使用した走行体の、組み立て図や環境構築手順、およびサンプルコードを公開しています。  \r\n利用可能なプラットフォームの情報などは参加者MLへアナウンスの上、都度更新されます。  \r\n（最終更新日：2016/02/15）  \r\n\r\nCopyright (C) 2015-2016 ETロボコン実行委員会, All rights reserved.\r\n\r\n注意：公開されている走行体組み立て図のご利用は、以下の目的に限らせていただきます：  \r\n　- ETロボコンへの参加のため  \r\n　- ETロボコンへの参加を検討するため  \r\n　- ETロボコンの広報  \r\n　- ETロボコンに参加、協力していることを広報するため  \r\n\r\n開発環境の構築ガイドなどは、Wiki をご覧ください： https://github.com/ETrobocon/etroboEV3/wiki\r\n\r\nそれぞれの開発環境での、課題と対処を、こちらにまとめています： https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping\r\n\r\n※ET ロボコン 2016 公式サイト： http://www.etrobo.jp/\r\n\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
+{
+  "name": "etroboEV3",
+  "tagline": "ETロボコン用のEV3サポートサイト",
+  "body": "# etroboEV3\r\nETロボコン用のEV3サポートサイト\r\n\r\nET ロボコン 2016 にて使用する、LEGO Mindstorms EV3 を使用した走行体の、組み立て図や環境構築手順、およびサンプルコードを公開しています。  \r\n[利用可能なプラットフォームの情報](https://github.com/ETrobocon/etroboEV3/wiki)などは参加者MLへアナウンスの上、都度更新されます。  \r\n（最終更新日：2016/04/04）  \r\n\r\nCopyright (C) 2015-2016 ETロボコン実行委員会, All rights reserved.\r\n\r\n注意：公開されている走行体組み立て図のご利用は、以下の目的に限らせていただきます：  \r\n　- ETロボコンへの参加のため  \r\n　- ETロボコンへの参加を検討するため  \r\n　- ETロボコンの広報  \r\n　- ETロボコンに参加、協力していることを広報するため  \r\n\r\n開発環境の構築ガイドなどは、Wiki をご覧ください： https://github.com/ETrobocon/etroboEV3/wiki\r\n\r\nそれぞれの開発環境での、課題と対処を、こちらにまとめています： https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping\r\n\r\n※ET ロボコン 2016 公式サイト： http://www.etrobo.jp/\r\n\r\n",
+  "google": "",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
