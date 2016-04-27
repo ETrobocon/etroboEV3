@@ -8,7 +8,7 @@
  **   —š—ð       : y_yama - Tue Sep 25 11:37:09 2007
  **                takashic - Sun Sep 28 17:50:53 2008
  **
- ** Copyright (c) 2009-2011 MathWorks, Inc.
+ ** Copyright (c) 2009-2016 MathWorks, Inc.
  ** All rights reserved.
  ******************************************************************************
  **/
