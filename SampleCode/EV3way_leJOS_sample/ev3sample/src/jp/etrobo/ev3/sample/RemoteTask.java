@@ -61,7 +61,7 @@ public class RemoteTask implements Runnable {
     }
 
     /**
-     * リモートコマンドのチェック	。
+     * リモートコマンドのチェック。
      * @param command コマンド
      */
     public final boolean checkRemoteCommand(int command) {
