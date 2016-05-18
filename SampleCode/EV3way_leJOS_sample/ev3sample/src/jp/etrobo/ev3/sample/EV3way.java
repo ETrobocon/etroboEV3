@@ -27,7 +27,7 @@ public class EV3way {
     public static final int   TAIL_ANGLE_STAND_UP   = 94;   // 完全停止時の角度[度]
     public static final int   TAIL_ANGLE_DRIVE      = 3;    // バランス走行時の角度[度]
 
-	// 下記のパラメータはセンサ個体/環境に合わせてチューニングする必要があります
+    // 下記のパラメータはセンサ個体/環境に合わせてチューニングする必要があります
     private static final Port  MOTORPORT_LWHEEL     = MotorPort.C;    // 左モータポート
     private static final Port  MOTORPORT_RWHEEL     = MotorPort.B;    // 右モータポート
     private static final Port  MOTORPORT_TAIL       = MotorPort.A;    // 尻尾モータポート
@@ -41,7 +41,7 @@ public class EV3way {
     private static final float SONAR_ALERT_DISTANCE = 0.3F;           // 超音波センサーによる障害物検知距離[m]
     private static final float P_GAIN               = 2.5F;           // 完全停止用モータ制御比例係数
     private static final int   PWM_ABS_MAX          = 60;             // 完全停止用モータ制御PWM絶対最大値
-    private static final float THRESHOLD = (LIGHT_WHITE+LIGHT_BLACK)/2.0F;	// ライントレースの閾値
+    private static final float THRESHOLD = (LIGHT_WHITE+LIGHT_BLACK)/2.0F;  // ライントレースの閾値
 
     // モータ制御用オブジェクト
     // EV3LargeRegulatedMotor では PWM 制御ができないので、TachoMotorPort を利用する

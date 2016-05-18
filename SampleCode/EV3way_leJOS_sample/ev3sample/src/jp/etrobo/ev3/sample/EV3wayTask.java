@@ -9,15 +9,15 @@ package jp.etrobo.ev3.sample;
  * EV3way を制御するタスク。
  */
 public class EV3wayTask implements Runnable {
-	private EV3way body;
+    private EV3way body;
 
-	/**
-	 * コンストラクタ。
-	 * @param way EV3本体
-	 */
-	public EV3wayTask(EV3way way) {
-		body = way;
-	}
+    /**
+     * コンストラクタ。
+     * @param way EV3本体
+     */
+    public EV3wayTask(EV3way way) {
+        body = way;
+    }
 
     /**
      * EV3本体の制御。
