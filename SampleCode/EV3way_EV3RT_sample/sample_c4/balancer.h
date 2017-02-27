@@ -1,11 +1,11 @@
 /**
  ******************************************************************************
- **	ƒtƒ@ƒCƒ‹–¼ : balancer.h
+ **	ãƒ•ã‚¡ã‚¤ãƒ«å : balancer.h
  **
- ** ƒ‚ƒfƒ‹ŠÖ˜Aî•ñ:
- **   ƒ‚ƒfƒ‹–¼   : balancer.mdl
- **   ƒo[ƒWƒ‡ƒ“ : 1.893
- **   —š—ğ       : y_yama - Tue Sep 25 11:37:09 2007
+ ** ãƒ¢ãƒ‡ãƒ«é–¢é€£æƒ…å ±:
+ **   ãƒ¢ãƒ‡ãƒ«å   : balancer.mdl
+ **   ãƒãƒ¼ã‚¸ãƒ§ãƒ³ : 1.893
+ **   å±¥æ­´       : y_yama - Tue Sep 25 11:37:09 2007
  **                takashic - Sun Sep 28 17:50:53 2008
  **
  ** Copyright (c) 2009-2016 MathWorks, Inc.
@@ -32,10 +32,9 @@ extern "C" {
 # define rtmGetStopRequested(rtm)      ((void*) 0)
 #endif
 
-#define CMD_MAX                        100.0F                    /* ‘Oi/ù‰ñ–½—ßâ‘ÎÅ‘å’l */
-#define DEG2RAD                        0.01745329238F            /* Šp“x’PˆÊ•ÏŠ·ŒW”(=pi/180) */
-//#define EXEC_PERIOD                    0.00400000019F            /* ƒoƒ‰ƒ“ƒX§ŒäÀsüŠú(•b) */
-#define EXEC_PERIOD                    0.00500000000F            /* ƒoƒ‰ƒ“ƒX§ŒäÀsüŠú(•b) *//* forEV3 20141102koji */
+#define CMD_MAX                        100.0F                    /* å‰é€²/æ—‹å›å‘½ä»¤çµ¶å¯¾æœ€å¤§å€¤ */
+#define DEG2RAD                        0.01745329238F            /* è§’åº¦å˜ä½å¤‰æ›ä¿‚æ•°(=pi/180) */
+#define EXEC_PERIOD                    0.00400000019F            /* ãƒãƒ©ãƒ³ã‚¹åˆ¶å¾¡å®Ÿè¡Œå‘¨æœŸ(ç§’) */
 
 /* Model entry point functions */
 extern void balance_init(void);
