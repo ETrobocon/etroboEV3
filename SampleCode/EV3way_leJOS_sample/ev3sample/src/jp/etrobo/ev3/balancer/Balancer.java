@@ -80,7 +80,7 @@ public class Balancer {
      * K_F[2]: 車輪回転角速度係数
      * K_F[3]: 車体傾斜角速度係数
      */
-    private static float[] K_F = new float[] { -0.870303F, -31.9978F, -1.1566F*0.9F, -2.78873F };
+    private static float[] K_F = new float[] { -0.870303F, -31.9978F, -1.1566F*0.6F, -2.78873F };
 
     /*
      * サーボ制御用積分フィードバック係数
