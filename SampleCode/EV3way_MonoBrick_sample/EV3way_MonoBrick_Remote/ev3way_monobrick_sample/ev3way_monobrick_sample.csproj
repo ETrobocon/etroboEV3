@@ -6,7 +6,7 @@
     <ProjectTypeGuids>{803879AC-26C2-49B0-AAA0-0DE4A7C68C87};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{D143CFF0-F2F5-474A-B631-698EC2E98A12}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ETTobocon.EV3.Sample</RootNamespace>
+    <RootNamespace>ETRobocon.EV3.Sample</RootNamespace>
     <AssemblyName>EV3Way</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
