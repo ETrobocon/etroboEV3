@@ -10,7 +10,7 @@ using MonoBrickFirmware.Display;
 using ETRobocon.EV3;
 
 // 2輪倒立振子ライントレースロボットの MonoBrick 用 c# サンプルプログラム。
-namespace ETTobocon.EV3.Sample
+namespace ETRobocon.EV3.Sample
 {
 	class MainClass
 	{
