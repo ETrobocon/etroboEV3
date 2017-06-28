@@ -5,6 +5,8 @@
  */
 package jp.etrobo.ev3.sample;
 
+import lejos.utility.Delay;
+
 /**
  * EV3way を制御するタスク。
  */
@@ -24,7 +26,14 @@ public class EV3wayTask implements Runnable {
      */
     @Override
     public void run() {
-        body.controlDrive();
-        body.controlTail(EV3way.TAIL_ANGLE_DRIVE);
+        while(true){
+            long time = System.currentTimeMillis();
+            body.controlDrive();
+            body.controlTail(EV3way.TAIL_ANGLE_DRIVE);
+            time = System.currentTimeMillis() - time;
+            if(time < 4){
+                Delay.msDelay(4 - time);
+            }
+        }
     }
 }
