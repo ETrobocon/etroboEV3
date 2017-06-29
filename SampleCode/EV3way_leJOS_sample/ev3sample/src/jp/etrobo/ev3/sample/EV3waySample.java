@@ -89,7 +89,7 @@ public class EV3waySample {
      * 走行開始時の作業スケジューリング。
      */
     public void start() {
-        futureDrive = scheduler.scheduleAtFixedRate(driveTask, 0, 4, TimeUnit.MILLISECONDS);
+        futureDrive = scheduler.schedule(driveTask, 0, TimeUnit.MILLISECONDS);
     }
 
     /**
