@@ -3,7 +3,7 @@ ETロボコン用のEV3サポートサイト
 
 ET ロボコン 2017 にて使用する、LEGO Mindstorms EV3 を使用した走行体の、組み立て図や環境構築手順、およびサンプルコードを公開しています。  
 [利用可能なプラットフォームの情報](https://github.com/ETrobocon/etroboEV3/wiki)などは参加者MLへアナウンスの上、都度更新されます。  
-（最終更新日：2017/07/21）  
+（最終更新日：2017/12/08）  
 
 Copyright (C) 2015-2017 ETロボコン実行委員会, All rights reserved.
 
