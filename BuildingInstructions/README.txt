@@ -22,5 +22,5 @@ ET ロボコンで使用する EV3way-ET の「非公式」な組み立て図で
 
 本組み立て図の著作権は、ETロボコン実行委員会に帰属します。
 
-Copyright(c) 2014-16 ETロボコン実行委員会
+Copyright(c) 2014-17 ETロボコン実行委員会
 All rights reserved.
