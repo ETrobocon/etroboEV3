@@ -6,10 +6,12 @@
 2 動作環境
 
 　走行体　　　　　　EV3way-ET (「EV3wayET16.pdf」参照 )
+　　　　　　　　　　( 2018年版走行体は 「EV3wayET18b.pdf」参照 )
 　　　　　　　　　　モータA：尻尾 B：右輪 C：左輪 D：未使用
 　　　　　　　　　　センサ1：タッチセンサ 2：超音波センサ 3：カラーセンサ 4：ジャイロセンサ
 　RTOS　　　　　　　TOPPERS/HRP2 Kernel
-　PC開発環境　　　　Microsoft Windows 8.1 64bit Home Premium
+　PC開発環境　　　　Microsoft Wintows 10 64bit Home
+　　　　　　　　　　Microsoft Windows 8.1 64bit Home Premium
 　　　　　　　　　　Microsoft Windows XP 32bit 以降で可能と思われます。
 　microSD 　　　　　メーカ、容量任意 FAT32フォーマット
 　Bluetoothホスト 　USBドングルタイプ
@@ -24,6 +26,9 @@
 　　　　　　　　　　超音波センサによる障害物検知を行います
 　　　　　　　　　　尻尾による完全停止の状態からスタートできます
 　　　　　　　　　　Bluetooth通信によるリモートスタートが可能です
+
+　sample_c4_2018　　sample_c4 の2018年版走行体用です
+　　　　　　　　　　2018年版走行体を使用する場合はこちらを使用してください
 
 4 主なファイル構成
 
@@ -79,7 +84,7 @@
 
 　5.4 Bluetooth接続
 
-　　TOPPERS/EV3RTではユーザプログラムの起動前にBluetooth接続を行います。 
+　　TOPPERS/EV3RTではユーザプログラムの起動前にBluetooth接続を行います。
 
 　　「5.2 実行 」の状態で、ホスト側との接続作業を行ってください。
 　　TeraTerm等のターミナルソフトのシリアル通信機能でEV3の仮想COMポートを
