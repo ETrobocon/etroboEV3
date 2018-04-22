@@ -46,18 +46,18 @@ static FILE     *bt = NULL;     /* Bluetoothファイルハンドル */
 /* 下記のマクロは個体/環境に合わせて変更する必要があります */
 /* sample_c1マクロ */
 #define GYRO_OFFSET  0          /* ジャイロセンサオフセット値(角速度0[deg/sec]時) */
-#define LIGHT_WHITE  55         /* 白色の光センサ値 */
+#define LIGHT_WHITE  40         /* 白色の光センサ値 */
 #define LIGHT_BLACK  0          /* 黒色の光センサ値 */
 /* sample_c2マクロ */
 #define SONAR_ALERT_DISTANCE 30 /* 超音波センサによる障害物検知距離[cm] */
 /* sample_c3マクロ */
-#define TAIL_ANGLE_STAND_UP  90 /* 完全停止時の角度[度] */
+#define TAIL_ANGLE_STAND_UP  93 /* 完全停止時の角度[度] */
 #define TAIL_ANGLE_DRIVE      3 /* バランス走行時の角度[度] */
-#define P_GAIN             2.5F /* 完全停止用モーター制御比例係数 */
-#define PWM_ABS_MAX          60 /* 完全停止用モーター制御PWM絶対最大値 */
+#define P_GAIN             2.5F /* 完全停止用モータ制御比例係数 */
+#define PWM_ABS_MAX          60 /* 完全停止用モータ制御PWM絶対最大値 */
 /* sample_c4マクロ */
-//#define DEVICE_NAME     "ET0"  /* Bluetooth名 sdcard:\ev3rt\etc\rc.conf.ini LocalNameで設定 */
-//#define PASS_KEY        "1234" /* パスキー    sdcard:\ev3rt\etc\rc.conf.ini PinCodeで設定 */
+//#define DEVICE_NAME     "ET0"  /* Bluetooth名 hrp2/target/ev3.h BLUETOOTH_LOCAL_NAMEで設定 */
+//#define PASS_KEY        "1234" /* パスキー    hrp2/target/ev3.h BLUETOOTH_PIN_CODEで設定 */
 #define CMD_START         '1'    /* リモートスタートコマンド */
 
 /* LCDフォントサイズ */
@@ -68,14 +68,13 @@ static FILE     *bt = NULL;     /* Bluetoothファイルハンドル */
 /* 関数プロトタイプ宣言 */
 static int sonar_alert(void);
 static void tail_control(signed int angle);
-static void backlash_cancel(signed char lpwm, signed char rpwm, int32_t *lenc, int32_t *renc);
 
 /* メインタスク */
 void main_task(intptr_t unused)
 {
     signed char forward;      /* 前後進命令 */
     signed char turn;         /* 旋回命令 */
-    signed char pwm_L, pwm_R; /* 左右モーターPWM出力 */
+    signed char pwm_L, pwm_R; /* 左右モータPWM出力 */
 
     /* LCD画面表示 */
     ev3_lcd_fill_rect(0, 0, EV3_LCD_WIDTH, EV3_LCD_HEIGHT, EV3_LCD_WHITE);
@@ -159,17 +158,14 @@ void main_task(intptr_t unused)
             }
         }
 
-        /* 倒立振子制御API に渡すパラメーターを取得する */
+        /* 倒立振子制御API に渡すパラメータを取得する */
         motor_ang_l = ev3_motor_get_counts(left_motor);
         motor_ang_r = ev3_motor_get_counts(right_motor);
         gyro = ev3_gyro_sensor_get_rate(gyro_sensor);
         volt = ev3_battery_voltage_mV();
 
-        /* バックラッシュキャンセル */
-        backlash_cancel(pwm_L, pwm_R, &motor_ang_l, &motor_ang_r);
-
         /* 倒立振子制御APIを呼び出し、倒立走行するための */
-        /* 左右モーター出力値を得る */
+        /* 左右モータ出力値を得る */
         balance_control(
             (float)forward,
             (float)turn,
@@ -249,9 +245,9 @@ static int sonar_alert(void)
 
 //*****************************************************************************
 // 関数名 : tail_control
-// 引数 : angle (モーター目標角度[度])
+// 引数 : angle (モータ目標角度[度])
 // 返り値 : 無し
-// 概要 : 走行体完全停止用モーターの角度制御
+// 概要 : 走行体完全停止用モータの角度制御
 //*****************************************************************************
 static void tail_control(signed int angle)
 {
@@ -298,24 +294,4 @@ void bt_task(intptr_t unused)
         }
         fputc(c, bt); /* エコーバック */
     }
-}
-
-//*****************************************************************************
-// 関数名 : backlash_cancel
-// 引数 : lpwm (左モーターPWM値 ※前回の出力値)
-//        rpwm (右モーターPWM値 ※前回の出力値)
-//        lenc (左モーターエンコーダー値)
-//        renc (右モーターエンコーダー値)
-// 返り値 : なし
-// 概要 : 直近のPWM値に応じてエンコーダー値にバックラッシュ分の値を追加します。
-//*****************************************************************************
-void backlash_cancel(signed char lpwm, signed char rpwm, int32_t *lenc, int32_t *renc)
-{
-    const int BACKLASHHALF = 4;   // バックラッシュの半分[deg]
-
-    if(lpwm < 0) *lenc += BACKLASHHALF;
-    else if(lpwm > 0) *lenc -= BACKLASHHALF;
-
-    if(rpwm < 0) *renc += BACKLASHHALF;
-    else if(rpwm > 0) *renc -= BACKLASHHALF;
 }
