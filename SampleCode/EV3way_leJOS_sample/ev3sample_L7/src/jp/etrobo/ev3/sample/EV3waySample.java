@@ -1,8 +1,7 @@
 /*
  *  EV3waySample.java (for leJOS EV3)
  *  Created on: 2016/02/11
- *  Updated on: 2018/04/30
- *  Copyright (c) 2016-2018 Embedded Technology Software Design Robot Contest
+ *  Copyright (c) 2016 Embedded Technology Software Design Robot Contest
  */
 package jp.etrobo.ev3.sample;
 

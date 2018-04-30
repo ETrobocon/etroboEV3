@@ -20,10 +20,10 @@
 ** VERSION : 1.893
 ** HISTORY : y_yama - Tue Sep 25 11:37:09 2007
 ** takashic - Sun Sep 28 17:50:53 2008
-** INACHI Minoru - Mon Apr 30 13:00:00 2018
+** INACHI Minoru - Thu Apr 16 00:10:24 2015 
 ** ported from balancer.c
 **
-** Copyright (c) 2009-2018 MathWorks, Inc.
+** Copyright (c) 2009-2016 MathWorks, Inc.
 ** All rights reserved.
 ******************************************************************************
 **/
@@ -80,7 +80,7 @@ public class Balancer {
      * K_F[2]: 車輪回転角速度係数
      * K_F[3]: 車体傾斜角速度係数
      */
-    private static float[] K_F = new float[] { -0.86526F, -30.73965F, -1.14828F*0.7F, -2.29757F };
+    private static float[] K_F = new float[] { -0.870303F, -31.9978F, -1.1566F*0.6F, -2.78873F };
 
     /*
      * サーボ制御用積分フィードバック係数
@@ -90,12 +90,12 @@ public class Balancer {
     /*
      * 車体の目標平面回転速度(dφ/dt)係数
      */
-    private static float K_PHIDOT = 25.0F*2.75F;
+    private static float K_PHIDOT = 25.0F*2.5F;
 
     /*
      * 左右車輪の平均回転速度(dθ/dt)係数
      */
-    private static float K_THETADOT = 6.0F;
+    private static float K_THETADOT = 7.5F;
 
     /*
      * PWM出力算出用バッテリ電圧補正係数
@@ -120,7 +120,7 @@ public class Balancer {
     /*
      *  バランス制御実行周期(秒)
      */
-    private static final float EXEC_PERIOD = 0.00400000000F;
+    private static final float EXEC_PERIOD = 0.00400000019F;
 
     private static float ud_err_theta = 0.0F;            /* 左右車輪の平均回転角度(θ)目標誤差状態値 */
     private static float ud_psi = 0.0F;                  /* 車体ピッチ角度(ψ)状態値 */
@@ -128,8 +128,8 @@ public class Balancer {
     private static float ud_theta_ref = 0.0F;            /* 左右車輪の目標平均回転角度(θ)状態値 */
     private static float ud_thetadot_cmd_lpf = 0.0F;     /* 左右車輪の目標平均回転角速度(dθ/dt)状態値 */
 
-    private static int pwm_l = 0;                        /* 左モーターPWM出力値 */
-    private static int pwm_r = 0;                        /* 右モーターPWM出力値 */
+    private static int pwm_l = 0;                        /* 左モータPWM出力値 */
+    private static int pwm_r = 0;                        /* 右モータPWM出力値 */
 
     private static float[] tmp = new float[4];
     private static float[] tmp_theta_0 = new float[4];

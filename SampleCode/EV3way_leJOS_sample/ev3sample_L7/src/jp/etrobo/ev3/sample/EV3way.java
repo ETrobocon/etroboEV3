@@ -1,8 +1,7 @@
 /*
  *  EV3way.java (for leJOS EV3)
  *  Created on: 2016/02/11
- *  Updated on: 2018/04/30
- *  Copyright (c) 2016-2018 Embedded Technology Software Design Robot Contest
+ *  Copyright (c) 2016 Embedded Technology Software Design Robot Contest
  */
 package jp.etrobo.ev3.sample;
 
@@ -22,62 +21,53 @@ import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 /**
- * EV3way本体のモーターとセンサーを扱うクラス。
+ * EV3way本体のモータとセンサーを扱うクラス。
  */
 public class EV3way {
-    public static final int   TAIL_ANGLE_STAND_UP   = 90;   // 完全停止時の角度[度]
+    public static final int   TAIL_ANGLE_STAND_UP   = 94;   // 完全停止時の角度[度]
     public static final int   TAIL_ANGLE_DRIVE      = 3;    // バランス走行時の角度[度]
 
-    // 下記のパラメータはセンサー個体/環境に合わせてチューニングする必要があります
-    private static final Port  MOTORPORT_LWHEEL     = MotorPort.C;    // 左モーターポート
-    private static final Port  MOTORPORT_RWHEEL     = MotorPort.B;    // 右モーターポート
-    private static final Port  MOTORPORT_TAIL       = MotorPort.A;    // 尻尾モーターポート
+    // 下記のパラメータはセンサ個体/環境に合わせてチューニングする必要があります
+    private static final Port  MOTORPORT_LWHEEL     = MotorPort.C;    // 左モータポート
+    private static final Port  MOTORPORT_RWHEEL     = MotorPort.B;    // 右モータポート
+    private static final Port  MOTORPORT_TAIL       = MotorPort.A;    // 尻尾モータポート
     private static final Port  SENSORPORT_TOUCH     = SensorPort.S1;  // タッチセンサーポート
     private static final Port  SENSORPORT_SONAR     = SensorPort.S2;  // 超音波センサーポート
     private static final Port  SENSORPORT_COLOR     = SensorPort.S3;  // カラーセンサーポート
     private static final Port  SENSORPORT_GYRO      = SensorPort.S4;  // ジャイロセンサーポート
     private static final float GYRO_OFFSET          = 0.0F;           // ジャイロセンサーオフセット値
-    private static final float LIGHT_WHITE          = 0.55F;          // 白色のカラーセンサー輝度値
+    private static final float LIGHT_WHITE          = 0.4F;           // 白色のカラーセンサー輝度値
     private static final float LIGHT_BLACK          = 0.0F;           // 黒色のカラーセンサー輝度値
     private static final float SONAR_ALERT_DISTANCE = 0.3F;           // 超音波センサーによる障害物検知距離[m]
-    private static final float P_GAIN               = 2.5F;           // 完全停止用モーター制御比例係数
-    private static final int   PWM_ABS_MAX          = 60;             // 完全停止用モーター制御PWM絶対最大値
+    private static final float P_GAIN               = 2.5F;           // 完全停止用モータ制御比例係数
+    private static final int   PWM_ABS_MAX          = 60;             // 完全停止用モータ制御PWM絶対最大値
     private static final float THRESHOLD = (LIGHT_WHITE+LIGHT_BLACK)/2.0F;  // ライントレースの閾値
-    private static final int   BACKLASHHALF = 4;                      // バックラッシュの半分[deg]
 
-    // モーター制御用オブジェクト
+    // モータ制御用オブジェクト
     // EV3LargeRegulatedMotor では PWM 制御ができないので、TachoMotorPort を利用する
-    public TachoMotorPort motorPortL; // 左モーター
-    public TachoMotorPort motorPortR; // 右モーター
-    public TachoMotorPort motorPortT; // 尻尾モーター
+    public TachoMotorPort motorPortL; // 左モータ
+    public TachoMotorPort motorPortR; // 右モータ
+    public TachoMotorPort motorPortT; // 尻尾モータ
 
-    // タッチセンサー
+    // タッチセンサ
     private EV3TouchSensor touch;
     private SensorMode touchMode;
     private float[] sampleTouch;
 
-    // 超音波センサー
+    // 超音波センサ
     private EV3UltrasonicSensor sonar;
     private SampleProvider distanceMode;  // 距離検出モード
     private float[] sampleDistance;
 
-    // カラーセンサー
+    // カラーセンサ
     private EV3ColorSensor colorSensor;
     private SensorMode redMode;           // 輝度検出モード
     private float[] sampleLight;
 
-    // ジャイロセンサー
+    // ジャイロセンサ
     private EV3GyroSensor gyro;
     private SampleProvider rate;          // 角速度検出モード
     private float[] sampleGyro;
-    
-    // 左右モーターPWM出力
-    private int leftPWM;
-    private int rightPWM;
-
-    // 左右モーター回転角度
-    private int leftTheta;
-    private int rightTheta;
 
     private int         driveCallCounter = 0;
     private boolean     sonarAlert   = false;
@@ -86,9 +76,9 @@ public class EV3way {
      * コンストラクタ。
      */
     public EV3way() {
-        motorPortL = MOTORPORT_LWHEEL.open(TachoMotorPort.class); // 左モーター
-        motorPortR = MOTORPORT_RWHEEL.open(TachoMotorPort.class); // 右モーター
-        motorPortT = MOTORPORT_TAIL.open(TachoMotorPort.class);   // 尻尾モーター
+        motorPortL = MOTORPORT_LWHEEL.open(TachoMotorPort.class); // 左モータ
+        motorPortR = MOTORPORT_RWHEEL.open(TachoMotorPort.class); // 右モータ
+        motorPortT = MOTORPORT_TAIL.open(TachoMotorPort.class);   // 尻尾モータ
         motorPortL.setPWMMode(BasicMotorPort.PWM_BRAKE);
         motorPortR.setPWMMode(BasicMotorPort.PWM_BRAKE);
         motorPortT.setPWMMode(BasicMotorPort.PWM_BRAKE);
@@ -113,14 +103,6 @@ public class EV3way {
         gyro = new EV3GyroSensor(SENSORPORT_GYRO);
         rate = gyro.getRateMode();              // 角速度検出モード
         sampleGyro = new float[rate.sampleSize()];
-
-        // 左右モーター出力
-        leftPWM = 0;
-        rightPWM = 0;
-
-        // 左右モーター回転角度
-        leftTheta = 0;
-        rightTheta = 0;
     }
 
     /**
@@ -142,21 +124,21 @@ public class EV3way {
     }
 
     /**
-     * センサー、モーター、倒立振子ライブラリのリセット。
+     * センサー、モータ、倒立振子ライブラリのリセット。
      */
     public void reset() {
         gyro.reset();
         motorPortL.controlMotor(0, 0);
         motorPortR.controlMotor(0, 0);
         motorPortT.controlMotor(0, 0);
-        motorPortL.resetTachoCount();   // 左モーターエンコーダリセット
-        motorPortR.resetTachoCount();   // 右モーターエンコーダリセット
-        motorPortT.resetTachoCount();   // 尻尾モーターエンコーダリセット
+        motorPortL.resetTachoCount();   // 左モータエンコーダリセット
+        motorPortR.resetTachoCount();   // 右モータエンコーダリセット
+        motorPortT.resetTachoCount();   // 尻尾モータエンコーダリセット
         Balancer.init();                // 倒立振子制御初期化
     }
 
     /**
-     * センサー、モーターの終了処理。
+     * センサー、モータの終了処理。
      */
     public void close() {
         motorPortL.close();
@@ -173,22 +155,6 @@ public class EV3way {
     public final boolean touchSensorIsPressed() {
         touchMode.fetchSample(sampleTouch, 0);
         return ((int)sampleTouch[0] != 0);
-    }
-
-    /*
-     * バックラッシュをキャンセルする。
-     */
-    private void cancelBacklash() {
-        if (leftPWM < 0) {
-            leftTheta = leftTheta + BACKLASHHALF;
-        } else if (leftPWM > 0) {
-            leftTheta = leftTheta - BACKLASHHALF;
-        }
-        if (rightPWM < 0) {
-            rightTheta = rightTheta + BACKLASHHALF;
-        } else if (rightPWM > 0) {
-            rightTheta = rightTheta - BACKLASHHALF;
-        }
     }
 
     /**
@@ -214,20 +180,17 @@ public class EV3way {
         }
 
         float gyroNow = getGyroValue();                 // ジャイロセンサー値
-        leftTheta = motorPortL.getTachoCount();         // 左モーター回転角度
-        rightTheta = motorPortR.getTachoCount();        // 右モーター回転角度
+        int thetaL = motorPortL.getTachoCount();        // 左モータ回転角度
+        int thetaR = motorPortR.getTachoCount();        // 右モータ回転角度
         int battery = Battery.getVoltageMilliVolt();    // バッテリー電圧[mV]
-        cancelBacklash();                               // バックラッシュのキャンセル
-        Balancer.control (forward, turn, gyroNow, GYRO_OFFSET, leftTheta, rightTheta, battery); // 倒立振子制御
-        leftPWM = Balancer.getPwmL();
-        rightPWM = Balancer.getPwmR();
-        motorPortL.controlMotor(leftPWM, 1);  // 左モーターPWM出力セット
-        motorPortR.controlMotor(rightPWM, 1); // 右モーターPWM出力セット
+        Balancer.control (forward, turn, gyroNow, GYRO_OFFSET, thetaL, thetaR, battery); // 倒立振子制御
+        motorPortL.controlMotor(Balancer.getPwmL(), 1); // 左モータPWM出力セット
+        motorPortR.controlMotor(Balancer.getPwmR(), 1); // 右モータPWM出力セット
     }
 
     /**
-     * 走行体完全停止用モーターの角度制御
-     * @param angle モーター目標角度[度]
+     * 走行体完全停止用モータの角度制御
+     * @param angle モータ目標角度[度]
      */	
     public void controlTail(int angle) {
         float pwm = (float)(angle - motorPortT.getTachoCount()) * P_GAIN; // 比例制御
