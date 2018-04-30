@@ -9,7 +9,7 @@ ETロボコンで使用する走行体の、各プラットフォーム用のサ
 * leJOS 用 (Java)
   - `EV3way_leJOS_sample.zip`
 * MonoBrick EV3 Firmware 用 (C#)
-  - EV3way_MonoBrick_sample.zip
+  - `EV3way_MonoBrick_sample.zip`
 
 ## 使用許諾（ライセンス）
 
