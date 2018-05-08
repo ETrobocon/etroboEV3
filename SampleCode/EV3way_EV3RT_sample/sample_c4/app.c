@@ -150,11 +150,11 @@ void main_task(intptr_t unused)
             forward = 30; /* 前進命令 */
             if (ev3_color_sensor_get_reflect(color_sensor) >= (LIGHT_WHITE + LIGHT_BLACK)/2)
             {
-                turn =  20; /* 左旋回命令 */
+                turn =  20; /* 右旋回命令 */
             }
             else
             {
-                turn = -20; /* 右旋回命令 */
+                turn = -20; /* 左旋回命令 */
             }
         }
 
@@ -251,7 +251,8 @@ static int sonar_alert(void)
 //*****************************************************************************
 static void tail_control(signed int angle)
 {
-    float pwm = (float)(angle - ev3_motor_get_counts(tail_motor))*P_GAIN; /* 比例制御 */
+    signed int pwm = (signed int)((angle - ev3_motor_get_counts(tail_motor))*P_GAIN); /* 比例制御 */
+
     /* PWM出力飽和処理 */
     if (pwm > PWM_ABS_MAX)
     {
