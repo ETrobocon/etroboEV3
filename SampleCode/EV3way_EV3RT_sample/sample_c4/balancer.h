@@ -34,8 +34,7 @@ extern "C" {
 
 #define CMD_MAX                        100.0F                    /* 前進/旋回命令絶対最大値 */
 #define DEG2RAD                        0.01745329238F            /* 角度単位変換係数(=pi/180) */
-#define EXEC_PERIOD                    0.00450000000F            /* バランス制御実行周期(秒) *//* sample_c4の処理時間考慮 */
-//#define EXEC_PERIOD                  0.00400000000F            /* バランス制御実行周期(秒) *//* 周期タスクでタイミングをとる場合はこちらに変更してください */
+#define EXEC_PERIOD                    0.00400000019F            /* バランス制御実行周期(秒) */
 
 /* Model entry point functions */
 extern void balance_init(void);
