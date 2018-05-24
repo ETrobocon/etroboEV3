@@ -188,7 +188,7 @@ public class Balancer {
 
     /**
      * サーボ制御用積分係数を取得する。
-     * @param k_i サーボ制御用積分係数
+     * @return k_i サーボ制御用積分係数
      */
     public static final float getKI() {
         return K_I;
