@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="ev3way_monobrick_sample/ev3way_monobrick_sample.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" ActiveRuntime="Mono 3.3.0 (6cd4ddc)&#xD;&#xA;Copyright)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ev3way_monobrick_sample\Main.cs">
+    <Files>
+      <File FileName="ev3way_monobrick_sample\Main.cs" Line="20" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
