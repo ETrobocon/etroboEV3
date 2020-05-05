@@ -22,4 +22,9 @@ sudo mv usr/local/athrill-gcc /usr/local
 sudo chmod -R 755 /usr/local/athrill-gcc
 sudo chown -R root:root /usr/local/athrill-gcc
 cd ..
-#rm -rf athrill-gcc*
+rm -rf athrill-gcc*
+
+wget https://etrobocon.github.io/etroboEV3/athrill-gcc_path
+wget https://etrobocon.github.io/etroboEV3/build_athrill.sh
+chmod +x build_athrill.sh
+./build_athrill.sh
