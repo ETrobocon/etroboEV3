@@ -27,6 +27,8 @@ rm -rf athrill-gcc*
 wget https://etrobocon.github.io/etroboEV3/athrill-gcc_path
 wget https://etrobocon.github.io/etroboEV3/build_athrill.sh
 wget https://etrobocon.github.io/etroboEV3/launch.sh
+wget https://etrobocon.github.io/etroboEV3/update.sh
 chmod +x build_athrill.sh
 chmod +x launch.sh
+chmod +x update.sh
 ./build_athrill.sh
