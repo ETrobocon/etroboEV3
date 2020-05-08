@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ -z "$ETROBO_ROOT" ]; then
+    export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
+    echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" >> ~/.bashrc
+fi
+if [ ! -d "$ETROBO_ROOT" ]; then
+    sudo apt -y update
+    sudo apt -y upgrade
+    sudo apt -y install build-essential
+    sudo apt -y install git
+    sudo apt -y install ruby
+
+    git clone https://github.com/ETrobocon/etrobo.git
+    "$ETROBO_ROOT/scripts/setup.sh"
+fi
+code "$ETROBO_ROOT"
