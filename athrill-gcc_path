@@ -1,2 +1,0 @@
-export PATH="/usr/local/athrill-gcc/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/athrill-gcc:/usr/local/athrill-gcc/lib:$LD_LIBRARY_PATH"
