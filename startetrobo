@@ -10,6 +10,7 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     sudo apt -y install git
     sudo apt -y install ruby
 
+    cd "`dirname $0`"
     git clone https://github.com/ETrobocon/etrobo.git
     "$ETROBO_ROOT/scripts/setup.sh"
 fi
