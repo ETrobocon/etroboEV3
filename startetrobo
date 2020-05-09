@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z "$ETROBO_ROOT" ]; then
+if [ ! -f "/etc/profile.d/etrobo.sh" ]; then
     export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
     tmpFile=$(mktemp)
     echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" > tmpFile
