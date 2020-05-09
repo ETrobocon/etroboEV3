@@ -6,6 +6,7 @@ if [ ! -f "/etc/profile.d/etrobo.sh" ]; then
     echo "source \"$ETROBO_ROOT/scripts/etroboenv.sh\"" >> tmpFile
     sudo mv tmpFile /etc/profile.d/etrobo.sh
 fi
+source /etc/profile.d/etrobo.sh > /dev/null
 if [ ! -d "$ETROBO_ROOT" ]; then
     sudo apt -y update
     sudo apt -y upgrade
