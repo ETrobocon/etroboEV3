@@ -1,8 +1,10 @@
 #!/bin/bash
 if [ -z "$ETROBO_ROOT" ]; then
     export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
-    sudo echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" > /etc/profile.d/etrobo.sh
-    sudo echo "source \"$ETROBO_ROOT/scripts/etroboenv.sh\"" >> /etc/profile.d/etrobo.sh
+    tmpFile=$(mktemp)
+    echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" > tmpFile
+    echo "source \"$ETROBO_ROOT/scripts/etroboenv.sh\"" >> tmpFile
+    sudo mv tmpFile /etc/profile.d/etrobo.sh
 fi
 if [ ! -d "$ETROBO_ROOT" ]; then
     sudo apt -y update
