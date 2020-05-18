@@ -1,18 +1,39 @@
-#!/bin/bash
-if [ ! -f "/etc/profile.d/etrobo.sh" ]; then
+#!/usr/bin/env bash
+if [ -f "BeerHall" ]; then
+    BeerHall="$BEERHALL"
+else
+    BeerHall=""
+fi
+
+if [ "$1" = "clean" ]; then
+    sudo rm -f "$BeerHall/etc/profile.d/etrobo.sh"
+    cd "$ETROBO_ROOT/.."
+    source "$ETROBO_SCRIPTS/etroboenv.sh unset"
+    rm -rf etrobo
+    exit 0
+fi
+
+if [ ! -f "$BeerHall/etc/profile.d/etrobo.sh" ]; then
     export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
     tmpFile=$(mktemp)
     echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" > tmpFile
     echo "source \"$ETROBO_ROOT/scripts/etroboenv.sh\"" >> tmpFile
-    sudo mv tmpFile /etc/profile.d/etrobo.sh
+    sudo mv tmpFile "$BeerHall/etc/profile.d/etrobo.sh"
 fi
-source /etc/profile.d/etrobo.sh > /dev/null
+source /etc/profile.d/etrobo.sh > /dev/null 2>&1
 if [ ! -d "$ETROBO_ROOT" ]; then
-    sudo apt -y update
-    sudo apt -y upgrade
-    sudo apt -y install build-essential
-    sudo apt -y install git
-    sudo apt -y install ruby
+    if [ -z "$BeerHall" ];then
+        sudo apt -y update
+        sudo apt -y upgrade
+        sudo apt -y install build-essential
+        sudo apt -y install git
+        sudo apt -y install ruby
+    else
+        brew update
+        brew upgrade
+        brew install git
+        brew install ruby
+    fi
 
     cd "`dirname $0`"
     git clone https://github.com/ETrobocon/etrobo.git
