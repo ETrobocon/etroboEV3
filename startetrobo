@@ -8,7 +8,7 @@ fi
 if [ "$1" = "clean" ]; then
     sudo rm -f "$BeerHall/etc/profile.d/etrobo.sh"
     cd "$ETROBO_ROOT/.."
-    source "$ETROBO_SCRIPTS/etroboenv.sh unset"
+    source "$ETROBO_SCRIPTS/etroboenv.sh" unset
     rm -rf etrobo
     exit 0
 fi
@@ -36,7 +36,12 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     fi
 
     cd "`dirname $0`"
+    echo Please enter your GitHub account name and password if GitHub ask you
     git clone https://github.com/ETrobocon/etrobo.git
-    "$ETROBO_ROOT/scripts/setup.sh"
+    if [ "$?" .eq 0 ]; then
+        "$ETROBO_ROOT/scripts/setup.sh"
+    else
+        echo an error occured during git clone. setup aborted.
+    fi
 fi
 code "$ETROBO_ROOT"
