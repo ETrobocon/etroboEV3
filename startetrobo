@@ -38,7 +38,7 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     cd "`dirname $0`"
     echo Please enter your GitHub account name and password if GitHub ask you
     git clone https://github.com/ETrobocon/etrobo.git
-    if [ "$?" .eq 0 ]; then
+    if [ $? .eq 0 ]; then
         "$ETROBO_ROOT/scripts/setup.sh"
     else
         echo an error occured during git clone. setup aborted.
