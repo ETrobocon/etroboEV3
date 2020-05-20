@@ -8,8 +8,8 @@ fi
 if [ "$1" = "clean" ]; then
     sudo rm -f "$BeerHall/etc/profile.d/etrobo.sh"
     cd "$ETROBO_ROOT/.."
-    source "$ETROBO_SCRIPTS/etroboenv.sh" unset
     rm -rf etrobo
+    echo please close and reopen Ubuntu Terminal and run './startetrobo' to re-install.
     exit 0
 fi
 
