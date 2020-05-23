@@ -1,27 +1,74 @@
 #!/usr/bin/env bash
+echo
+echo 'startetrobo - etrobo all-in-one package installer/invoker'
+echo
+
 if [ -f "BeerHall" ]; then
     BeerHall="$BEERHALL"
 else
     BeerHall=""
 fi
 
+if [ -z "$ETROBO_ROOT" ]; then
+    export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
+fi
+
+rm -f "$ETROBO/disable"
+
+if [ "$1" = "--help" ]; then
+    echo 'Usage:'
+    echo '  startetrobo         ... install and/or open etrobo terminal on VSCode'
+    echo '  startetrobo shell   ... install and/or open etrobo terminal on this terminal'
+    echo
+    echo '  . startetrobo unset ... unset etrobo environment vars from this instance'
+    echo '  . startetrobo shell ... export etrobo environment vars into this instance'
+    echo
+    echo '  startetrobo clean   ... remove etrobo environment from here'
+    echo
+    exit 0
+fi
+
+if [ "$1" = "update" ]; then
+    rm -f "$ETROBO_ROOT/../startetrobo"
+    cp -f "$ETROBO_ROOT/scripts/startetrobo" "$ETROBO_ROOT/.."
+    echo "startetrobo is copied into $ETROBO_ROOT"
+fi
+
+if [ "$1" = "unset" ]; then
+    echo "$0"
+    . "$ETROBO_ROOT/scripts/etroboenv.sh" unset
+    echo 'etrobo environment vars are unset if you really call with `. `.'
+    exit 0
+fi
+
 if [ "$1" = "clean" ]; then
+    echo 'NOTICE:'
+    echo '  run `update dist` on the etrobo terminal'
+    echo '  before this `clean` process to update startetrobo.'
+    echo 'WARNING:'
+    echo '  all your code on workspaces will remove forever.'
+    echo
+    read -p 'are you sure you want to `clean`? (y/N): '
     sudo rm -f "$BeerHall/etc/profile.d/etrobo.sh"
     cd "$ETROBO_ROOT/.."
     rm -rf etrobo
-    echo please close and reopen Ubuntu Terminal and run './startetrobo' to re-install.
+    echo 'please close and reopen Ubuntu Terminal and run `./startetrobo` to re-install.'
     exit 0
 fi
 
 if [ ! -f "$BeerHall/etc/profile.d/etrobo.sh" ]; then
-    export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
+    echo "create etrobo environment vars exporter into $BeerHall/etc/profile.d/etrobo.sh"
+    echo 'Please enter your login password as sudoers if [sudo] ask you'
     tmpFile=$(mktemp)
     echo "export ETROBO_ROOT=\"$ETROBO_ROOT\"" > tmpFile
     echo "source \"$ETROBO_ROOT/scripts/etroboenv.sh\"" >> tmpFile
     sudo mv tmpFile "$BeerHall/etc/profile.d/etrobo.sh"
 fi
-source /etc/profile.d/etrobo.sh > /dev/null 2>&1
+
 if [ ! -d "$ETROBO_ROOT" ]; then
+    echo
+    echo "update and upgrade your platform"
+    echo 'Please enter your login password as sudoers if [sudo] ask you'
     if [ -z "$BeerHall" ];then
         sudo apt -y update
         sudo apt -y upgrade
@@ -36,12 +83,27 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     fi
 
     cd "`dirname $0`"
-    echo Please enter your GitHub account name and password if GitHub ask you
+    echo
+    echo ''
+    echo 'Please enter your GitHub account name and password if GitHub ask you'
     git clone https://github.com/ETrobocon/etrobo.git
     if [ $? -eq 0 ]; then
         "$ETROBO_ROOT/scripts/setup.sh"
     else
-        echo an error occured during git clone. setup aborted.
+        echo
+        echo 'an error occured during git clone. setup aborted.'
+        exit 0
     fi
 fi
-code "$ETROBO_ROOT"
+
+cd "$ETROBO_ROOT"
+if [ -z "$ETROBO_ENV" ]; then
+    . "$BeerHall/etc/profile.d/etrobo.sh"
+fi
+if [ "$ETROBO_ENV" = "available" ]; then
+    if [ "$1" = "shell" ]; then
+        bash -l
+    else
+        code .
+    fi
+fi
