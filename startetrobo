@@ -88,8 +88,8 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     echo 'Please enter your GitHub account name and password if GitHub ask you'
     git clone https://github.com/ETrobocon/etrobo.git
     if [ $? -eq 0 ]; then
-        if [ "$1" = "nolibpath" ]; then
-            touch "$ETROBO_ROOT/nolibpath"
+        if [ "$1" = "ldlibpath" ]; then
+            touch "$ETROBO_ROOT/ldlibpath"
         fi
         "$ETROBO_ROOT/scripts/setup.sh"
     else
