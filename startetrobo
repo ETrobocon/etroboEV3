@@ -89,7 +89,7 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     git clone https://github.com/ETrobocon/etrobo.git
     if [ $? -eq 0 ]; then
         if [ "$1" = "nolibpath" ]; then
-            touch "$ETROBOROOT/nolibpath"
+            touch "$ETROBO_ROOT/nolibpath"
         fi
         "$ETROBO_ROOT/scripts/setup.sh"
     else
