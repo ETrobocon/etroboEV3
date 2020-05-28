@@ -8,6 +8,29 @@ if [ -f "BeerHall" ]; then
 else
     BeerHall=""
 fi
+if [ `uname` == "Darwin" ]; then
+    host="mac"
+elif [ `uname -r | sed -E "s/^.*-(.*)$/\1/"` == "Microsoft" ]; then
+    host="win"
+elif [ `uname` == "Linux" ]; then
+    host="linux"
+else
+    echo unknown Host OS or not WSL on Windows 10.
+    exit 1
+fi
+if [ `uname -m` != "x86_64" ]; then
+    echo this environment is available to use on x86_64.
+    exit 1
+fi
+if [ `uname` == "Linux" ]; then
+    if [ "`cat /etc/os-release 2>&1 | grep ^ID | sed -E "s/^ID.*=(.*)$/\1/" | tail -n 1`" != "debian" ]; then
+        echo this environment is available to use on Debian GNU/Linux variants.
+        exit 1
+    else
+        guest=`cat /etc/os-release 2>&1 | grep ^PRETTY_NAME | sed -E "s/^PRETTY_NAME=\"(.*)\"/\1/"`
+    fi
+fi
+echo "detect platform: $host.x86_64($guest)"
 
 if [ -z "$ETROBO_ROOT" ]; then
     export ETROBO_ROOT="$(cd `dirname $0`; pwd)/etrobo"
@@ -31,7 +54,8 @@ fi
 if [ "$1" = "update" ]; then
     rm -f "$ETROBO_ROOT/../startetrobo"
     cp -f "$ETROBO_ROOT/scripts/startetrobo" "$ETROBO_ROOT/.."
-    echo "startetrobo is copied into $ETROBO_ROOT"
+    echo "startetrobo is copied into `cd $ETROBO_ROOT/..`"
+    exit 0
 fi
 
 if [ "$1" = "unset" ]; then
@@ -89,7 +113,7 @@ if [ ! -d "$ETROBO_ROOT" ]; then
     git clone https://github.com/ETrobocon/etrobo.git
     if [ $? -eq 0 ]; then
         if [ "$1" = "ldlibpath" ]; then
-            touch "$ETROBO_ROOT/ldlibpath"
+            touch "$ETROBOROOT/ldlibpath"
         fi
         "$ETROBO_ROOT/scripts/setup.sh"
     else
