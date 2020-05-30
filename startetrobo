@@ -105,10 +105,10 @@ if [ "$1" = "clean" ]; then
     rm -rf etrobo
     if [ -n "$deepFlag" ]; then
         if [ "$kernel" = "linux" ]; then
-            echo remove /etc/profile.d/ev3rt.sh
-            sudo rm -f "/etc/profile.d/ev3rt.sh"
-            echo remove /opt/gcc-arm-none-eabi*
-            sudo rm -rf "/opt/gcc-arm-none-eabi*"
+            echo "remove /etc/profile.d/ev3rt.sh"
+            sudo rm -f /etc/profile.d/ev3rt.sh
+            echo "remove /opt/gcc-arm-none-eabi*/"
+            sudo rm -rf /opt/gcc-arm-none-eabi*/
             if [ "$host" = "win" ]; then
                 userProfile="$(cmd.exe /c echo %USERPROFILE% | sed -r 's/^(.{1}):.*$/\/mnt\/\L&/' | sed -r 's/:|\r|\n//g' | sed -r 's/\\/\//g')"
             else
@@ -121,8 +121,8 @@ if [ "$1" = "clean" ]; then
                 userProfile="$HOME"
             fi 
         fi
-        echo remove (HOME)/etrobosim*
-        sudo rm -rf "$userProfile/etrobosim*"
+        echo "remove $userProfile/etrobosim*/"
+        sudo rm -rf $userProfile/etrobosim*/
     fi
     echo 'please close and reopen Ubuntu Terminal and run `./startetrobo` to re-install.'
     exit 0
