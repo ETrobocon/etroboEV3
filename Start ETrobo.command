@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.20d.200531"
+echo " as 'Start ETrobo.command' Ver 4.30a.200531"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -86,7 +86,7 @@ if [ -z "$BEERHALL" ]; then
     cd "$BEERHALL/usr"
     curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C local
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
-    local/bin/brew install bash bash-completion git ruby wget gcc@7 make
+    local/bin/brew install bash bash-completion findutils git wget ruby@2.5 gcc@7 make
 
     echo "modify gcc7 filenames"
     cd "$BEERHALL/usr/local/bin"
@@ -97,8 +97,9 @@ if [ -z "$BEERHALL" ]; then
 
     echo "make aliases"
     echo "gmake \"\$@\"" > make
+    echo "gfind \"\$@\"" > find
     echo "\"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code\" \"\$@\"" > code
-    chmod +x make code
+    chmod +x make find ruby code
 
     echo "make symbolic link from \$BEERHALL/etc to \$BEERHALL/usr/local/etc"
     ln -s "$BEERHALL/usr/local/etc" "$BEERHALL/etc"
@@ -106,17 +107,19 @@ if [ -z "$BEERHALL" ]; then
     echo "make BeerHall"
     beer=$(mktemp)
     echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $beer
+    echo '    export HOME_ORG="$HOME"' >> $beer
     echo '    export BEERHALL_INVOKER="booting"' >> $beer
     echo 'fi' >> $beer
-    echo 'export BEERHALL="/Users/jt/BeerHall"' >> $beer
-    echo 'export HOMEBREW_CACHE="/Users/jt/BeerHall/usr/local/cache"' >> $beer
+    echo "export BEERHALL=\"$BEERHALL\"" >> $beer
+    echo 'export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"' >> $beer
     echo 'export HOMEBREW_TEMP="/tmp"' >> $beer
-    echo 'export HOME_ORG="/Users/jt"' >> $beer
-    echo 'export HOME="/Users/jt/BeerHall"' >> $beer
-    echo 'export SHELL="/Users/jt/BeerHall/usr/local/bin/bash"' >> $beer
-    echo 'export PATH="/Users/jt/BeerHall:/Users/jt/BeerHall/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
+    echo 'export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"' >> $beer
+    echo 'export BEERHALL_RUBY="$BEERHALL/usr/local/opt/ruby@2.5/bin"' >> $beer
+    echo 'export HOME="$BEERHALL"' >> $beer
+    echo 'export SHELL="$BEERHALL/usr/local/bin/bash"' >> $beer
+    echo 'export PATH="$BEERHALL:/$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.20d"' >> $beer
+    echo 'export TERM_PROGRAM_VERSION="4.30a"' >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
