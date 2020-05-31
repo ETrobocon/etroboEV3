@@ -27,7 +27,7 @@ if [ -z "$BEERHALL" ]; then
         hallName="$1"
     fi
 
-    pwd="$(cd `dirname $0`; pwd)"
+    pwd="$(cd "$(dirname "$0")"; pwd)"
 
     if [ -e "$pwd/$hallName" ]; then
         echo "'$pwd/$hallName' already exists. please delete it or use other name or"
