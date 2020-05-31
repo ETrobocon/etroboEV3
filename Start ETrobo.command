@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.30a.200531"
+echo " as 'Start ETrobo.command' Ver 4.31a.200531"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -118,8 +118,9 @@ if [ -z "$BEERHALL" ]; then
     echo 'export HOME="$BEERHALL"' >> $beer
     echo 'export SHELL="$BEERHALL/usr/local/bin/bash"' >> $beer
     echo 'export PATH="$BEERHALL:/$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
+    echo 'export BEERHALL_PATH="$BEERHALL:/$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.30a"' >> $beer
+    echo 'export TERM_PROGRAM_VERSION="4.31a"' >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
