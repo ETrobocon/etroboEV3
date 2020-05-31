@@ -99,7 +99,7 @@ if [ -z "$BEERHALL" ]; then
     echo "gmake \"\$@\"" > make
     echo "gfind \"\$@\"" > find
     echo "\"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code\" \"\$@\"" > code
-    chmod +x make find ruby code
+    chmod +x make find code
 
     echo "make symbolic link from \$BEERHALL/etc to \$BEERHALL/usr/local/etc"
     ln -s "$BEERHALL/usr/local/etc" "$BEERHALL/etc"
@@ -148,6 +148,7 @@ if [ -z "$BEERHALL" ]; then
     echo "download startetrobo"
     cd "$BEERHALL"
     "$BEERHALL/usr/local/bin/wget" "https://ETrobocon.github.io/etroboEV3/startetrobo"
+    chmod +x startetrobo
 fi
 
 cd "$BEERHALL"
