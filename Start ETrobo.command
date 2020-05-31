@@ -139,6 +139,7 @@ if [ -z "$BEERHALL" ]; then
     echo '    fi' >> $beer
     echo 'fi' >> $beer
     mv -f $beer "$BEERHALL/BeerHall"
+    chmod +x "$BEERHALL/BeerHall"
 
     # for startetrobo
     echo "download startetrobo"
