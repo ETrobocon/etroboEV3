@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.10a.200531"
+echo " as 'Start ETrobo.command' Ver 4.20d.200531"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -55,22 +55,22 @@ if [ -z "$BEERHALL" ]; then
 
     bashrc="/etc/bashrc_BeerHall"
     echo "add $bashrc"
-    sudo echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $bashrc
-    sudo echo '    . "$BEERHALL/BeerHall"' >> $bashrc
-    sudo echo 'else' >> $bashrc
-    sudo echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
-    sudo echo 'fi'
+    echo 'if [ -z "$BEERHALL_INVOKER" ]; then' | sudo tee $bashrc
+    echo '    . "$BEERHALL/BeerHall"' | sudo tee -a $bashrc
+    echo 'else' | sudo tee -a $bashrc
+    echo '    . "$BEERHALL/BeerHall" setpath' | sudo tee -a $bashrc
+    echo 'fi' | sudo tee -a $bashrc
 
     bashrc="/etc/bashrc_vscode"
     sudo touch $bashrc
     echo "add $bashrc"
     if [ -z "`cat $bashrc 2>&1 | grep BEERHALL`" ]; then
-        sudo echo "'BEERHALL_INVOKER' event is added into $bashrc"
-        sudo echo '# ----- this section was added by jtBeerHall -----' >> $bashrc
-        sudo echo 'if [ "$BEERHALL_INVOKER" = "ready" ]; then' >> $bashrc
-        sudo echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
-        sudo echo 'fi' >> $bashrc
-        sudo echo '# ------------------------------------------------' >> $bashrc
+        echo "'BEERHALL_INVOKER' event is added into $bashrc"
+        echo '# ----- this section was added by jtBeerHall -----' | sudo tee -a $bashrc
+        echo 'if [ "$BEERHALL_INVOKER" = "ready" ]; then' | sudo tee -a $bashrc
+        echo '    . "$BEERHALL/BeerHall" setpath' | sudo tee -a $bashrc
+        echo 'fi' | sudo tee -a $bashrc
+        echo '# ------------------------------------------------' | sudo tee -a $bashrc
     fi
 
     echo "make symbolic link"
@@ -116,7 +116,7 @@ if [ -z "$BEERHALL" ]; then
     echo 'export SHELL="/Users/jt/BeerHall/usr/local/bin/bash"' >> $beer
     echo 'export PATH="/Users/jt/BeerHall:/Users/jt/BeerHall/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.10a"' >> $beer
+    echo 'export TERM_PROGRAM_VERSION="4.20d"' >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
