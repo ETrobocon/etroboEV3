@@ -107,7 +107,7 @@ if [ -z "$BEERHALL" ]; then
     beer=$(mktemp)
     echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $beer
     echo '    export BEERHALL_INVOKER="booting"' >> $beer
-    echo 'fi' >> tmpFile
+    echo 'fi' >> $beer
     echo 'export BEERHALL="/Users/jt/BeerHall"' >> $beer
     echo 'export HOMEBREW_CACHE="/Users/jt/BeerHall/usr/local/cache"' >> $beer
     echo 'export HOMEBREW_TEMP="/tmp"' >> $beer
