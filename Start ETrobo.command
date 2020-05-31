@@ -11,14 +11,9 @@ echo " as 'Start ETrobo.command' Ver 4.10a.200531"
 #
 
 if [ "$1" = "clean" ]; then
-    cd "$BEERHALL"
-    unlink .gitconfig
-    unlink .ssh
-    unlink .vscode
-    unlink Applications
-    unlink Library
-    unlink etc
-
+    if [ -z "$BEERHALL" ]; then
+        BEERHALL="$(cd "$(dirname "$0")"; pwd)/BeerHall"
+    fi
     sudo rm /etc/bashrc_BeerHall
     sudo rm /etc/bashrc_vscode
     sudo rm -rf "$BEERHALL"
