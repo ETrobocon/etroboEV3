@@ -120,7 +120,7 @@ if [ -z "$BEERHALL" ]; then
     echo 'fi' >> $beer
     echo '' >> $beer
     echo 'tmpFile=$(mktemp)' >> $beer
-    echo "ls -lFa \"\$BEERHALL/etc/profile.d\" | grep -v / | sed -e '1d' | sed -E 's/^.* (.*$)/\1/' > \$tmpFile" >> $beer
+    echo "ls -lFa \"\$BEERHALL/etc/profile.d\" | grep -v / | sed -e '1d' | sed -E 's/^.* (.*$)/\\1/' > \$tmpFile" >> $beer
     echo 'while read line; do' >> $beer
     echo '    . "$BEERHALL/etc/profile.d/$line"' >> $beer
     echo 'done < $tmpFile' >> $beer
