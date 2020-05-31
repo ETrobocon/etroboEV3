@@ -52,22 +52,22 @@ if [ -z "$BEERHALL" ]; then
 
     bashrc="/etc/bashrc_BeerHall"
     echo "add $bashrc"
-    echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $bashrc
-    echo '    . "$BEERHALL/BeerHall"' >> $bashrc
-    echo 'else' >> $bashrc
-    echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
-    echo 'fi'
+    sudo echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $bashrc
+    sudo echo '    . "$BEERHALL/BeerHall"' >> $bashrc
+    sudo echo 'else' >> $bashrc
+    sudo echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
+    sudo echo 'fi'
 
     bashrc="/etc/bashrc_vscode"
-    touch $bashrc
+    sudo touch $bashrc
     echo "add $bashrc"
     if [ -z "`cat $bashrc 2>&1 | grep BEERHALL`" ]; then
-        echo "'BEERHALL_INVOKER' event is added into $bashrc"
-        echo '# ----- this section was added by jtBeerHall -----' >> $bashrc
-        echo 'if [ "$BEERHALL_INVOKER" = "ready" ]; then' >> $bashrc
-        echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
-        echo 'fi' >> $bashrc
-        echo '# ------------------------------------------------' >> $bashrc
+        sudo echo "'BEERHALL_INVOKER' event is added into $bashrc"
+        sudo echo '# ----- this section was added by jtBeerHall -----' >> $bashrc
+        sudo echo 'if [ "$BEERHALL_INVOKER" = "ready" ]; then' >> $bashrc
+        sudo echo '    . "$BEERHALL/BeerHall" setpath' >> $bashrc
+        sudo echo 'fi' >> $bashrc
+        sudo echo '# ------------------------------------------------' >> $bashrc
     fi
 
     echo "make symbolic link"
