@@ -10,6 +10,13 @@ echo " as 'Start ETrobo.command' Ver 4.10a.200531"
 # https://opensource.org/licenses/mit-license.php
 #
 
+if [ "$1" = "clean" ]; then
+    sudo rm /etc/bashrc_BeerHall
+    sudo rm /etc/bashrc_vscode
+    sudo rm -rf "$BEERHALL"
+    exit 0
+fi
+
 if [ -z "$BEERHALL" ]; then
     echo
     echo "try to create a new BeerHall"
@@ -113,7 +120,7 @@ if [ -z "$BEERHALL" ]; then
     echo 'fi' >> $beer
     echo '' >> $beer
     echo 'tmpFile=$(mktemp)' >> $beer
-    echo 'ls -lFa "$BEERHALL/etc/profile.d" | grep -v / | sed -e '1d' | sed -E 's/^.* (.*$)/\1/' > $tmpFile' >> $beer
+    echo "ls -lFa \"\$BEERHALL/etc/profile.d\" | grep -v / | sed -e '1d' | sed -E 's/^.* (.*$)/\1/' > \$tmpFile" >> $beer
     echo 'while read line; do' >> $beer
     echo '    . "$BEERHALL/etc/profile.d/$line"' >> $beer
     echo 'done < $tmpFile' >> $beer
