@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.51a.200603"
+echo " as 'Start ETrobo.command' Ver 4.51b.200603"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -24,6 +24,7 @@ if [ "$1" = "clean" ]; then
     sudo rm -f /etc/bashrc_BeerHall
     sudo rm -f /etc/bashrc_vscode
     sudo rm -rf "$BEERHALL"
+    unset BEERHALL
     exit 0
 fi
 
@@ -96,7 +97,7 @@ if [ -z "$BEERHALL" ]; then
     local/bin/brew install bash bash-completion findutils git wget ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
-#    cd "$BEERHALL/usr/local/bin"
+    cd "$BEERHALL/usr/local/bin"
 #    ls | grep 7$ | while read line; do
 #        fileName=`echo "$line" | sed -E 's/(.*)-7/\1/'`
 #        mv "$line" "$fileName"
@@ -142,10 +143,10 @@ if [ -z "$BEERHALL" ]; then
     echo 'export BEERHALL_GCC_VER_MAJOR=`echo "$BEERHALL_GCC_VER" | sed -E "s/^(.*)\..*\..*$/\1/"`' >> $beer
     echo 'export HOME="$BEERHALL"' >> $beer
     echo 'export SHELL="$BEERHALL/usr/local/bin/bash"' >> $beer
-    echo 'export PATH="$BEERHALL:/$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
+    echo 'export PATH="$BEERHALL:$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export BEERHALL_PATH="$PATH"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.51a"' >> $beer
+    echo 'export TERM_PROGRAM_VERSION="4.51b"' >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
