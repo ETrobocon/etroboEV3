@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.50a.200603"
+echo " as 'Start ETrobo.command' Ver 4.51a.200603"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -14,8 +14,15 @@ if [ "$1" = "clean" ]; then
     if [ -z "$BEERHALL" ]; then
         BEERHALL="$(cd "$(dirname "$0")"; pwd)/BeerHall"
     fi
-    sudo rm /etc/bashrc_BeerHall
-    sudo rm /etc/bashrc_vscode
+    ls $BEERHALL/usr/local/opt/flex/lib |
+    while read line; do
+        rm -f "/usr/local/lib/$line"
+        if [ -e "/usr/local/lib/$line.BeerHallTmp" ]; then
+            mv "/usr/local/lib/$line.BeerHallTmp" "/usr/local/lib/$line"
+        fi
+    done
+    sudo rm -f /etc/bashrc_BeerHall
+    sudo rm -f /etc/bashrc_vscode
     sudo rm -rf "$BEERHALL"
     exit 0
 fi
@@ -105,9 +112,17 @@ if [ -z "$BEERHALL" ]; then
     ln -s "$BEERHALL/usr/local/etc" "$BEERHALL/etc"
 
     echo "make symbolic link from /usr/local/lib to flex/lib"
-    ln -s "$BEERHALL/usr/local/opt/flex/lib/libfl.2.dylib" "/usr/local/lib/libfl.2.dylib"
-    ln -s "$BEERHALL/usr/local/opt/flex/lib/libfl.a" "/usr/local/lib/libfl.a"
-    ln -s "$BEERHALL/usr/local/opt/flex/lib/libfl.dylib" "/usr/local/lib/libfl.dylib"
+    ls $BEERHALL/usr/local/opt/flex/lib |
+    while read line; do
+        if [ -e "/usr/local/lib/$line" ]; then
+            if [ ! -e "/usr/local/lib/$line.BeerHallTmp" ]; then
+                mv "/usr/local/lib/$line" "/usr/local/lib/$line.BeerHallTmp"
+            else
+                rm "/usr/local/lib/$line"
+            fi
+        fi
+        ln -s "$BEERHALL/usr/local/opt/flex/lib/$line" "/usr/local/lib/$line"
+    done
 
     echo "make BeerHall"
     beer=$(mktemp)
@@ -130,7 +145,7 @@ if [ -z "$BEERHALL" ]; then
     echo 'export PATH="$BEERHALL:/$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export BEERHALL_PATH="$PATH"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.50a"' >> $beer
+    echo 'export TERM_PROGRAM_VERSION="4.51a"' >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
