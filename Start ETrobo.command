@@ -127,7 +127,8 @@ if [ -z "$BEERHALL" ]; then
 
     echo "make BeerHall"
     beer=$(mktemp)
-    echo 'if [ -z "$BEERHALL_INVOKER" ]; then' > $beer
+    echo '#!/usr/bin/env bash' > $beer
+    echo 'if [ -z "$BEERHALL_INVOKER" ]; then' >> $beer
     echo '    export HOME_ORG="$HOME"' >> $beer
     echo '    export BEERHALL_INVOKER="booting"' >> $beer
     echo 'fi' >> $beer
@@ -138,9 +139,9 @@ if [ -z "$BEERHALL" ]; then
     echo 'export BEERHALL_RUBY="$BEERHALL/usr/local/opt/ruby@2.5/bin"' >> $beer
     echo 'export BEERHALL_DARWIN_VER=`uname -a | sed -E "s/^.*Darwin Kernel Version (.*): .*$/\1/"`' >> $beer
     echo 'export BEERHALL_ARCH="x86_64-apple-darwin$BEERHALL_DARWIN_VER"' >> $beer
-    echo 'export BEERHALL_GCC_VER_FULL=`gcc --version | head -n 1 | sed -E "s/^.*GCC (.*)\).*$/\1/"`' >> $beer
-    echo 'export BEERHALL_GCC_VER="${BEERHALL_GCC_VER_FULL:0:5}"' >> $beer
-    echo 'export BEERHALL_GCC_VER_MAJOR=`echo "$BEERHALL_GCC_VER" | sed -E "s/^(.*)\..*\..*$/\1/"`' >> $beer
+    #echo 'export BEERHALL_GCC_VER_FULL=`gcc --version | head -n 1 | sed -E "s/^.*GCC (.*)\).*$/\1/"`' >> $beer
+    #echo 'export BEERHALL_GCC_VER="${BEERHALL_GCC_VER_FULL:0:5}"' >> $beer
+    #echo 'export BEERHALL_GCC_VER_MAJOR=`echo "$BEERHALL_GCC_VER" | sed -E "s/^(.*)\..*\..*$/\1/"`' >> $beer
     echo 'export HOME="$BEERHALL"' >> $beer
     echo 'export SHELL="$BEERHALL/usr/local/bin/bash"' >> $beer
     echo 'export PATH="$BEERHALL:$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
