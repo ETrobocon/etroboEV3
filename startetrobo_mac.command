@@ -3,7 +3,7 @@ echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'Start ETrobo.command' Ver 4.51b.200603"
+echo " as 'startetrobo.command' Ver 4.60a.200605"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -21,10 +21,60 @@ if [ "$1" = "clean" ]; then
             mv "/usr/local/lib/$line.BeerHallTmp" "/usr/local/lib/$line"
         fi
     done
+
     sudo rm -f /etc/bashrc_BeerHall
-    sudo rm -f /etc/bashrc_vscode
+
+    targetFile=/etc/bashrc_vscode
+    unset removeFlag
+    bashrc=$(mktemp)
+    cat $targetFile | 
+    while read line; do
+        if [ -z "$removeFlag" ]; then
+            if [ -n "`echo $line | grep jtBeerHall`" ]; then
+                removeFlag="remove"
+            else
+                echo $line >> $bashrc
+            fi
+        else
+            if [ -n "`echo $line | grep jtBeerHall`" ]; then
+                unset removeFlag
+            fi
+        fi
+    done
+    sudo rm -f $targetFile
+    if [ -s $bashrc ]; then
+        sudo mv -f $bashrc $targetFile
+    else
+        rm $bashrc
+    fi
+
+    targetFile=~/.bash_profile
+    unset removeFlag
+    bashrc=$(mktemp)
+    cat $targetFile | 
+    while read line; do
+        if [ -z "$removeFlag" ]; then
+            if [ -n "`echo $line | grep jtBeerHall`" ]; then
+                removeFlag="remove"
+            else
+                echo $line >> $bashrc
+            fi
+        else
+            if [ -n "`echo $line | grep jtBeerHall`" ]; then
+                unset removeFlag
+            fi
+        fi
+    done
+    sudo rm -f $targetFile
+    if [ -s $bashrc ]; then
+        sudo mv -f $bashrc $targetFile
+    else
+        rm $bashrc
+    fi
+
     sudo rm -rf "$BEERHALL"
     unset BEERHALL
+    echo "Please restart terminal to unset env vars."
     exit 0
 fi
 
@@ -58,7 +108,7 @@ if [ -z "$BEERHALL" ]; then
         echo "envvar named 'BEERHALL' is added into $profile"
         echo "# ----- this section was added by jtBeerHall -----" >> $profile
         echo "export BEERHALL=\"$BEERHALL\"" >> $profile
-        echo "# ------------------------------------------------" >> $profile
+        echo "# ------------------------------- jtBeerHall end -" >> $profile
     fi
 
     bashrc="/etc/bashrc_BeerHall"
@@ -78,7 +128,7 @@ if [ -z "$BEERHALL" ]; then
         echo 'if [ "$BEERHALL_INVOKER" = "ready" ]; then' | sudo tee -a $bashrc
         echo '    . "$BEERHALL/BeerHall" setpath' | sudo tee -a $bashrc
         echo 'fi' | sudo tee -a $bashrc
-        echo '# ------------------------------------------------' | sudo tee -a $bashrc
+        echo "# ------------------------------- jtBeerHall end -" | sudo tee -a $bashrc
     fi
 
     echo "make symbolic link"
@@ -94,6 +144,8 @@ if [ -z "$BEERHALL" ]; then
     cd "$BEERHALL/usr"
     curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C local
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
+    local/bin/brew update
+    local/bin/brew upgrade
     local/bin/brew install bash bash-completion findutils git wget ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
