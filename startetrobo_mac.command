@@ -1,5 +1,5 @@
 #!/bin/bash
-export BEERHALL_VER="4.80a.200606"
+export BEERHALL_VER="4.80b.200606"
 echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
@@ -198,6 +198,7 @@ if [ -z "$BEERHALL" ]; then
     echo '    export BEERHALL_INVOKER="booting"' >> $beer
     echo 'fi' >> $beer
     echo "export BEERHALL=\"$BEERHALL\"" >> $beer
+    echo "export BEERHALL_VER=\"$BEERHALL_VER\"" >> $beer
     echo 'export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"' >> $beer
     echo 'export HOMEBREW_TEMP="/tmp"' >> $beer
     echo 'export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"' >> $beer
