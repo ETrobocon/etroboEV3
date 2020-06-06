@@ -1,9 +1,10 @@
 #!/bin/bash
+export BEERHALL_VER="4.80a.200606"
 echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
 echo "------------"
-echo " as 'startetrobo.command' Ver 4.71a.200606"
+echo " as 'startetrobo_mac.command' Ver $BEERHALL_VER"
 # Copyright (c) 2020 jtLab, Hokkaido Information University
 # by TANAHASHI, Jiro(aka jtFuruhata) <jt@do-johodai.ac.jp>
 # Released under the MIT license
@@ -79,6 +80,16 @@ if [ "$1" = "clean" ]; then
 fi
 
 if [ -z "$BEERHALL" ]; then
+    echo "check the Xcode installation:"
+    echo "if you get an error," 
+    echo "  your environment is good for create a new BeerHall."
+    echo "when after install the Xcode Command Line Tools,"
+    echo "  you should reboot your Mac and run `Start ETrobo.command` again."
+    xcode-select --install
+    if [ $? -eq 0 ]; then
+        exit 0
+    fi        
+
     echo
     echo "try to create a new BeerHall"
 
@@ -201,7 +212,7 @@ if [ -z "$BEERHALL" ]; then
     echo 'export PATH="$BEERHALL:$BEERHALL/usr/local/bin:$BEERHALL_RUBY:/usr/bin:/bin:/usr/sbin:/sbin"' >> $beer
     echo 'export BEERHALL_PATH="$PATH"' >> $beer
     echo 'export TERM_PROGRAM="BeerHall"' >> $beer
-    echo 'export TERM_PROGRAM_VERSION="4.71a"' >> $beer
+    echo "export TERM_PROGRAM_VERSION=\"$BEERHALL_VER\"" >> $beer
     echo '' >> $beer
     echo 'if [ "$1" != "setpath" ]; then' >> $beer
     echo '    echo "Welcome, you are in jtBeerHall - an implementation of Homebrew sandbox"' >> $beer
