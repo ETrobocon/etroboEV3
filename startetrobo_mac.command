@@ -146,7 +146,7 @@ if [ -z "$BEERHALL" ]; then
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
     local/bin/brew update
     local/bin/brew upgrade
-    local/bin/brew install bash bash-completion findutils git wget ruby@2.5 flex make
+    local/bin/brew install bash bash-completion findutils wget ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
     cd "$BEERHALL/usr/local/bin"
@@ -158,7 +158,7 @@ if [ -z "$BEERHALL" ]; then
     echo "make aliases"
     echo "gmake \"\$@\"" > make
     echo "gfind \"\$@\"" > find
-    echo "\"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code\" \"\$@\"" > code
+    echo "\"/usr/local/bin/code\" \"\$@\"" > code
     chmod +x make find code
 
     echo "make symbolic link from \$BEERHALL/etc to \$BEERHALL/usr/local/etc"
