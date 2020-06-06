@@ -146,7 +146,9 @@ if [ -z "$BEERHALL" ]; then
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
     local/bin/brew update
     local/bin/brew upgrade
-    local/bin/brew install bash bash-completion findutils wget ruby@2.5 flex make
+    local/bin/brew install openjdk
+    export PATH="$PATH:$BEERHALL/usr/local/opt/openjdk/bin"
+    local/bin/brew install bash bash-completion findutils wget git ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
     cd "$BEERHALL/usr/local/bin"
