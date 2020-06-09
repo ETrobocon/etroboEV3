@@ -160,6 +160,7 @@ if [ -z "$BEERHALL" ]; then
     local/bin/brew install openjdk
     export PATH="$PATH:$BEERHALL/usr/local/opt/openjdk/bin"
     local/bin/brew install svn
+    export HOMEBREW_SVN="$BEERHALL/usr/local/bin/svn"
     local/bin/brew install bash bash-completion findutils wget git ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
@@ -201,6 +202,7 @@ if [ -z "$BEERHALL" ]; then
     echo "export BEERHALL=\"$BEERHALL\"" >> $beer
     echo "export BEERHALL_VER=\"$BEERHALL_VER\"" >> $beer
     echo 'export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"' >> $beer
+    echo 'export HOMEBREW_SVN="$BEERHALL/usr/local/bin/svn"'
     echo 'export HOMEBREW_TEMP="/tmp"' >> $beer
     echo 'export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"' >> $beer
     echo 'export BEERHALL_RUBY="$BEERHALL/usr/local/opt/ruby@2.5/bin"' >> $beer
