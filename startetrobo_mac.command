@@ -159,6 +159,7 @@ if [ -z "$BEERHALL" ]; then
     local/bin/brew upgrade
     local/bin/brew install openjdk
     export PATH="$PATH:$BEERHALL/usr/local/opt/openjdk/bin"
+    local/bin/brew install svn
     local/bin/brew install bash bash-completion findutils wget git ruby@2.5 flex make
 
 #    echo "modify gcc@7 filenames"
