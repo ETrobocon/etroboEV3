@@ -157,11 +157,73 @@ if [ -z "$BEERHALL" ]; then
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
     local/bin/brew update
     local/bin/brew upgrade
+
+    # install kegs
+
+    # openjdk (for gettext)
     local/bin/brew install openjdk
-    export PATH="$PATH:$BEERHALL/usr/local/opt/openjdk/bin"
-    local/bin/brew install svn
+    BEERHALL_OPT_PATH="$BEERHALL/usr/local/opt/openjdk/bin"
+    export PATH="$BEERHALL_OPT_PATH:$PATH"
+    # pkg-config (for subversion)
+    local/bin/brew install pkg-config
+    # gdbm (for subversion)
+    local/bin/brew install gdbm
+    # openssl@1.1 (for subversion)
+    local/bin/brew install openssl@1.1
+    local/bin/brew link openssl@1.1 --force
+    # readline (for subversion)
+    local/bin/brew install readline
+    local/bin/brew link readline --force
+    # sqlite (for subversion)
+    local/bin/brew install sqlite
+    local/bin/brew link sqlite --force
+    # xz (for subversion)
+    local/bin/brew install xz
+    # python@3.8 (for subversion)
+    local/bin/brew install python@3.8
+    local/bin/brew link python@3.8 --force
+    # scons (for subversion)
+    local/bin/brew install scons
+    # pcre (for subversion)
+    local/bin/brew install pcre
+    # swig (for subversion)
+    local/bin/brew install swig
+    # apr (for subversion)
+    local/bin/brew install apr
+    local/bin/brew link apr --force
+    # apr-util (for subversion)
+    local/bin/brew install apr-util
+    local/bin/brew link apr-util --force
+    # gettext (for subversion)
+    local/bin/brew install gettext
+    # lz4 (for subversion)
+    local/bin/brew install lz4
+    # perl (for subversion)
+    local/bin/brew install perl
+    # utf8proc (for subversion)
+    local/bin/brew install utf8proc
+    # subversion (for homebrew core)
+    local/bin/brew install subversion
     export HOMEBREW_SVN="$BEERHALL/usr/local/bin/svn"
+
+    # libyaml (for ruby@2.5)
+    local/bin/brew install libyaml
+    # libunistring (for wget)
+    local/bin/brew install libunistring
+    # libidn2 (for wget)
+    local/bin/brew install libidn2
+    # help2man (for flex)
+    local/bin/brew install help2man
+    # pcre2 (for git)
+    local/bin/brew install pcre2
+    # lzip (for make)
+    local/bin/brew install lzip
+
+    # install BeerHall (for etrobo) formulae
+
     local/bin/brew install bash bash-completion findutils wget git ruby@2.5 flex make
+    local/bin/brew link ruby@2.5 --force
+    local/bin/brew link flex --force
 
 #    echo "modify gcc@7 filenames"
     cd "$BEERHALL/usr/local/bin"
