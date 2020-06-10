@@ -1,5 +1,5 @@
 #!/bin/bash
-export BEERHALL_VER="4.80b.200606"
+export BEERHALL_VER="4.90d.200608"
 echo
 echo "------------"
 echo " jtBeerHall - an implementation of Homebrew sandbox"
@@ -81,10 +81,11 @@ fi
 
 if [ -z "$BEERHALL" ]; then
     echo "check the Xcode installation:"
-    echo "if you get an error," 
-    echo "  your environment is good for create a new BeerHall."
     echo "when after install the Xcode Command Line Tools,"
-    echo "  you should reboot your Mac and run `Start ETrobo.command` again."
+    echo '  you should reboot your Mac and run `Start ETrobo.command` again.'
+    echo
+    echo "if you get an error on below," 
+    echo "  your environment is *GOOD* for create a new BeerHall."
     xcode-select --install
     if [ $? -eq 0 ]; then
         exit 0
@@ -155,75 +156,76 @@ if [ -z "$BEERHALL" ]; then
     cd "$BEERHALL/usr"
     curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C local
     export HOMEBREW_CACHE="$BEERHALL/usr/local/cache"
-    local/bin/brew update
-    local/bin/brew upgrade
+    export PATH="$BEERHALL/usr/local/bin:$PATH"
+    brew update
+    brew upgrade
+    brew install bash
 
     # install kegs
 
     # openjdk (for gettext)
-    local/bin/brew install openjdk
-    BEERHALL_OPT_PATH="$BEERHALL/usr/local/opt/openjdk/bin"
-    export PATH="$BEERHALL_OPT_PATH:$PATH"
+    brew install openjdk
+    brew link openjdk --force
     # pkg-config (for subversion)
-    local/bin/brew install pkg-config
+    brew install pkg-config
     # gdbm (for subversion)
-    local/bin/brew install gdbm
+    brew install gdbm
     # openssl@1.1 (for subversion)
-    local/bin/brew install openssl@1.1
-    local/bin/brew link openssl@1.1 --force
+    brew install openssl@1.1
+    brew link openssl@1.1 --force
     # readline (for subversion)
-    local/bin/brew install readline
-    local/bin/brew link readline --force
+    brew install readline
+    brew link readline --force
     # sqlite (for subversion)
-    local/bin/brew install sqlite
-    local/bin/brew link sqlite --force
+    brew install sqlite
+    brew link sqlite --force
     # xz (for subversion)
-    local/bin/brew install xz
+    brew install xz
     # python@3.8 (for subversion)
-    local/bin/brew install python@3.8
-    local/bin/brew link python@3.8 --force
+    brew install python@3.8
+    brew link python@3.8 --force
     # scons (for subversion)
-    local/bin/brew install scons
+    brew install scons
     # pcre (for subversion)
-    local/bin/brew install pcre
+    brew install pcre
     # swig (for subversion)
-    local/bin/brew install swig
+    brew install swig
     # apr (for subversion)
-    local/bin/brew install apr
-    local/bin/brew link apr --force
+    brew install apr
+    brew link apr --force
     # apr-util (for subversion)
-    local/bin/brew install apr-util
-    local/bin/brew link apr-util --force
+    brew install apr-util
+    brew link apr-util --force
     # gettext (for subversion)
-    local/bin/brew install gettext
+    brew install gettext
     # lz4 (for subversion)
-    local/bin/brew install lz4
+    brew install lz4
     # perl (for subversion)
-    local/bin/brew install perl
+    brew install perl
     # utf8proc (for subversion)
-    local/bin/brew install utf8proc
+    brew install utf8proc
     # subversion (for homebrew core)
-    local/bin/brew install subversion
+    brew install subversion
     export HOMEBREW_SVN="$BEERHALL/usr/local/bin/svn"
 
     # libyaml (for ruby@2.5)
-    local/bin/brew install libyaml
+    brew install libyaml
     # libunistring (for wget)
-    local/bin/brew install libunistring
+    brew install libunistring
     # libidn2 (for wget)
-    local/bin/brew install libidn2
+    brew install libidn2
     # help2man (for flex)
-    local/bin/brew install help2man
+    brew install help2man
     # pcre2 (for git)
-    local/bin/brew install pcre2
+    brew install pcre2
     # lzip (for make)
-    local/bin/brew install lzip
+    brew install lzip
 
     # install BeerHall (for etrobo) formulae
 
-    local/bin/brew install bash bash-completion findutils wget git ruby@2.5 flex make
-    local/bin/brew link ruby@2.5 --force
-    local/bin/brew link flex --force
+    brew install bash-completion findutils wget git ruby@2.5 flex make
+    brew link ruby@2.5 --force
+    brew link flex --force
 
 #    echo "modify gcc@7 filenames"
     cd "$BEERHALL/usr/local/bin"
